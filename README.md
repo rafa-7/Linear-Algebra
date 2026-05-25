@@ -59,4 +59,23 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 ## Tasks
 
+- [x] Search and use a professional structure for C project
+
+- [x] Complete initial documentation
+
+- [ ] Header and function for Matrix Diagonalization
+
+- [ ] Structure in main.c 
+
 ## Structure
+
+```Structure
+├── bin             -> Final binary
+├── build           -> Intermediary binaries
+├── docs            -> All documentation
+│   └── images      -> Images used
+├── include         -> Headers
+└── src             -> Main
+    └── modules     -> Functions
+
+```
