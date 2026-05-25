@@ -79,3 +79,5 @@ Para instruções ou prints na main, utilizarei somente português -->
     └── modules     -> Functions
 
 ```
+
+by [Rafael](https://github.com/rafael-machado1)
