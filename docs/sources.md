@@ -7,3 +7,5 @@
 - [Professional structure in C](https://stackoverflow.com/questions/2605253/what-is-a-good-project-structure-in-c)
 
 - [Another Professional Structure in C](https://www.lucavall.in/blog/how-to-structure-c-projects-my-experience-best-practices)
+
+- [Makefile: docs](https://www.gnu.org/software/make/manual/make.html)
