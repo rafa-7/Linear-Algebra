@@ -63,13 +63,13 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 - [x] Complete initial documentation
 
+- [ ] Understand makefile (read docs)
+
 - [ ] Adaptation for Windows and/or Linux
 
-- [ ] GUI or TUI initials
+- [ ] GUI or TUI initials 
 
-- [ ] 
-
-- [ ] Header and function for Matrix Diagonalization
+- [ ] Header and function for Matrix determinant (using it all over the code, so it's really necessary)
 
 - [ ] Structure in main.c 
 
