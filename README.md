@@ -1,3 +1,7 @@
+<div allign="center">
+    <img src="docs/images/IFG - 2015 - Completa.jpg" height="350" width="auto">
+</div>
+
 # Linear Algebra
 
 <!-- Para o(s) professor(es):
