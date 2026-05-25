@@ -1,8 +1,8 @@
-<div allign="center">
-    <img src="docs/images/IFG - 2015 - Completa.jpg" height="350" width="auto">
+<div   allign="center">
+    <img src="docs/images/IFG - 2015 - Completa.jpg" height="250" width="auto">
 </div>
 
-# Linear Algebra
+# Linear Algebra 
 
 <!-- Para o(s) professor(es):
 Tentei fazer tudo em inglês para praticar e deixar o repositório mais "público"
