@@ -63,6 +63,12 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 - [x] Complete initial documentation
 
+- [ ] Adaptation for Windows and/or Linux
+
+- [ ] GUI or TUI initials
+
+- [ ] 
+
 - [ ] Header and function for Matrix Diagonalization
 
 - [ ] Structure in main.c 
