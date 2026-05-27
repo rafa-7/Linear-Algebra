@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "../include/determinant.h"
 
 /**
  *    .____    .__                                             
@@ -18,7 +19,16 @@
 
 int main()
 {
-    printf("Teste\n");
+    // Teste de determinante
+    int show[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    printf("O determinante dessa matriz é equivalente a %d\n",det(3, show));
+
+    printf("teste.com.br\n");
 
     return 0;
 }
