@@ -109,4 +109,4 @@ make clean
 
 ```
 
-by [Rafael](https://github.com/rafael-machado1) and [Yuri](https://github.com/YURI-gomes062)
+by [Rafael](https://github.com/rafa-7) and [Yuri](https://github.com/YURI-gomes062)
