@@ -58,12 +58,13 @@ Para instruções ou prints na main, utilizarei somente português -->
 - Matrix Diagonalization
 
 ## Tasks
-
-- [x] Search and use a professional structure for C project
+<!-- No máximo 7 Tasks aqui -->
 
 - [x] Complete initial documentation
 
-- [ ] Understand makefile (read docs)
+- [x] Completing documentation for [compiling](docs/compile.md) 
+
+- [x] Understand makefile (read docs)
 
 - [ ] Adaptation for Windows and/or Linux
 
@@ -73,6 +74,28 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 - [ ] Structure in main.c 
 
+## Compiling and running
+
+### Make
+
+- In this project, we are using a [Makefile](Makefile), by all means the compiling will be an easy process
+
+- Run `make` to compile everything into the bin folder
+
+```Makefile
+make
+```
+
+- After that, run the binary by using:
+
+```Running
+bin/./LinearAlgebra
+```
+- After testing all you want, run this command to remove all binaries and object files
+
+```Makefile clean
+make clean
+```
 ## Structure
 
 ```Structure
