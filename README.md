@@ -86,4 +86,4 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 ```
 
-by [Rafael](https://github.com/rafael-machado1)
+by [Rafael](https://github.com/rafael-machado1) and [Yuri](https://github.com/YURI-gomes062)
