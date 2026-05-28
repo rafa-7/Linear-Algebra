@@ -1,20 +1,40 @@
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 #include "../../include/determinant.h"
 
 // O determinante pode apenas ser calculado para matrizes quadradas
 
 /*
-Para chamar a função, vamos utilizar uma matriz 2x2 como exemplo:
+Para chamar a função, vamos utilizar uma matriz 4x4 como exemplo:
 
-int matrixTeste[2][2] =
-{
-    {1, 2},
-    {3, 4}
-};
+    int matrizTeste[2][2] =
+    {
+        {1, 2, 3.2, 5},
+        {3, 4, 290.23, 3.14159},
+        {0, 8, 900, 325},
+        {1, 6, 7, 3.14159},
+    };
 
-int det(2, matrixTeste);
+    printf("det(A)=%.1lf\n",det(2, matrizTeste));
+    Isso retorna o determinante
 */
-int det(int ordem, int a[ordem][ordem])
+
+// Será necessário fazer uma função para a matriz reduzida
+// Essa deve ser void e deve retornar a matriz reduzida por referência
+void matrixRedu(int ordem, double rootMatrix[ordem][ordem], double subMatrix[ordem][ordem])
+{
+    for (int i = 0; i < ordem; i++)
+    {
+        for (int j = 0; j < ordem; j++)
+        {
+            
+        }
+    }
+}
+
+
+double det(int ordem, double a[ordem][ordem])
 {
     if (ordem == 1)
     {
@@ -30,29 +50,29 @@ int det(int ordem, int a[ordem][ordem])
         // Regra de Sarrus decomposta
         return a[0][0] * a[1][1] * a[2][2] + a[0][1] * a[1][2] * a[2][0] + a[0][2] * a[1][0] * a[2][1] - a[0][2] * a[1][1] * a[2][0] - a[0][0] * a[1][2] * a[2][1] - a[0][1] * a[1][0] * a[2][2];
     }
-    // else if (ordem >= 4)
-    // {
-    //     // Teorema de Laplace
-    //     int cofator;
+    else if (ordem >= 4)
+    {
+        // Teorema de Laplace
+        /*
+        Task:
+        Sinais variando sempre
+        Pensar em uma maneira de fazer isso via algoritmo
+        + - + - +
+        - + - + -
+        + - + - +
+        - + - + -
+        */
+        
+        /*
+        Task:
+        Verificar linhas e colunas, a que tiver mais 
+        zeros será usado pra cálculo (opcional, o programa 
+        vai funcionar de qualquer jeito, tendo 0 ou não)
+        */
 
-    //     // Procurar por algum elemento equivalente a 0
-    //     for (int i = 0; i < ordem; i++)
-    //     {
-    //         for (int j = 0; j < ordem; j++)
-    //         {
-    //             if (a[i][j] == 0)
-    //             {
-    //                 int posicao =  
-    //             }
-    //             // Para o infortúnio de não haver nenhum elemento 0
-    //             else
-    //             {
 
-    //             }
-    //         }
-    //     }
 
-    // }
+    }
     else
     {
         printf("Digite uma ordem válida!\n");
