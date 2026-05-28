@@ -15,6 +15,12 @@ bin/LinearAlgebra: build/main.o build/determinant.o
 # The flag "-c" compiles the file as a part of the main (object file) not linking it directly
 # To link all the files, just type the binaries before the flag
 # To compile everything together use "-o" with the binaries linked before
+
+# For any new function, just copy this pattern:
+#	build/function.o: src/modules/function.c
+#		@echo "Compiling main"
+#		@$(CC) src/modules/function.c -c -o build/function.o
+
 build/main.o: src/main.c
 	@echo "Compiling main"
 	@$(CC) src/main.c -c -o build/main.o
@@ -23,6 +29,10 @@ build/determinant.o: src/modules/determinant.c
 	@echo "Compiling determinant function"
 	@$(CC) $(CFLAGS) src/modules/determinant.c -c -o build/determinant.o
 
+build/scanm.o: src/modules/scanm.c
+	@echo "Compiling main"
+	@$(CC) src/modules/scanm.c -c -o build/scanm.o
+
 clean:
 	@echo "Removing executable files"
-	@rm -f build/main.o build/determinant.o bin/LinearAlgebra
+	@rm -f build/main.o build/determinant.o build/scanm.o bin/LinearAlgebra
