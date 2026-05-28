@@ -1,3 +1,3 @@
 #pragma once
 
-int det(int tamanho, int a[tamanho][tamanho]);
+double det(int ordem, double a[ordem][ordem]);
