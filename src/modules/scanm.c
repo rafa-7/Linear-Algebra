@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../../include/scanm.h"
 
-// Using this function for matrix diagonilization
+// Essa função vai ser usada na diagonalização de matrizes
 int scanm(int tamanho, double a[tamanho][tamanho])
 {
     for (int i = 0; i < 0; i++)
