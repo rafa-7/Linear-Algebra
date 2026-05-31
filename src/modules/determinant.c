@@ -28,7 +28,10 @@ void matrixRedu(int ordem, double rootMatrix[ordem][ordem], double subMatrix[ord
     {
         for (int j = 0; j < ordem; j++)
         {
-            
+            if ()
+            {
+                rootMatrix[i][j]
+            }
         }
     }
 }
@@ -52,6 +55,10 @@ double det(int ordem, double a[ordem][ordem])
     }
     else if (ordem >= 4)
     {
+        
+        int zeros = 0;
+        double linha[tamanho];
+        double coluna[tamanho];
         // Teorema de Laplace
         /*
         Task:
@@ -70,7 +77,25 @@ double det(int ordem, double a[ordem][ordem])
         vai funcionar de qualquer jeito, tendo 0 ou não)
         */
 
+        
+        for (int i = 0; i < ordem; i++)
+        {
+            for (int j = 0; j < ordem; j++)
+            {
+                if (a[i][j] == 0)
+                {
+                    zeros++;
+                    
 
+                }
+                else
+                {
+
+                }
+                    
+            }
+        }
+          
 
     }
     else
