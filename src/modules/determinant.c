@@ -55,47 +55,13 @@ double det(int ordem, double a[ordem][ordem])
     }
     else if (ordem >= 4)
     {
-        
-        int zeros = 0;
-        double linha[tamanho];
-        double coluna[tamanho];
-        // Teorema de Laplace
-        /*
-        Task:
-        Sinais variando sempre
-        Pensar em uma maneira de fazer isso via algoritmo
-        + - + - +
-        - + - + -
-        + - + - +
-        - + - + -
-        */
-        
-        /*
-        Task:
-        Verificar linhas e colunas, a que tiver mais 
-        zeros será usado pra cálculo (opcional, o programa 
-        vai funcionar de qualquer jeito, tendo 0 ou não)
-        */
 
-        
-        for (int i = 0; i < ordem; i++)
-        {
-            for (int j = 0; j < ordem; j++)
-            {
-                if (a[i][j] == 0)
-                {
-                    zeros++;
-                    
+        // Teorema de Laplace é ineficiente
+        // Vamos partir para a eliminação de Gauss
 
-                }
-                else
-                {
+        // Cada vez que uma 
+        int swaps = 0;
 
-                }
-                    
-            }
-        }
-          
 
     }
     else
