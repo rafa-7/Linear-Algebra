@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <math.h>
+
+// Usando o abs para módulo
 #include <stdlib.h>
 #include "../../include/determinant.h"
 
@@ -20,23 +21,6 @@ Para chamar a função, vamos utilizar uma matriz 4x4 como exemplo:
     Isso retorna o determinante
 */
 
-// Será necessário fazer uma função para a matriz reduzida
-// Essa deve ser void e deve retornar a matriz reduzida por referência
-void matrixRedu(int ordem, double rootMatrix[ordem][ordem], double subMatrix[ordem][ordem])
-{
-    for (int i = 0; i < ordem; i++)
-    {
-        for (int j = 0; j < ordem; j++)
-        {
-            if ()
-            {
-                rootMatrix[i][j]
-            }
-        }
-    }
-}
-
-
 double det(int ordem, double a[ordem][ordem])
 {
     if (ordem == 1)
@@ -55,12 +39,18 @@ double det(int ordem, double a[ordem][ordem])
     }
     else if (ordem >= 4)
     {
+        // Eliminação Gaussiana
+        for (int i = 0; i < ordem; i++)
+        {
+            for (int j = i + 1; j < ordem; j++)
+            {
+                // A intenção é definir o maior pivô pra não termos divisão por zero aqui
+                if (a[j][i] > a[i][i])
+                {
 
-        // Teorema de Laplace é ineficiente
-        // Vamos partir para a eliminação de Gauss
-
-        // Cada vez que uma 
-        int swaps = 0;
+                }
+            }
+        }
 
 
     }
