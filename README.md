@@ -60,17 +60,14 @@ Para instruções ou prints na main, utilizarei somente português -->
 ## Tasks
 <!-- No máximo 7 Tasks aqui -->
 
-- [x] Complete initial documentation
+- [x] Header and function for Matrix determinant (using it all over the code, so it's really necessary)
 
-- [x] Completing documentation for [compiling](docs/compile.md) 
+<!-- Apenas usar uname -->
+- [x] Adaptation of the Makefile for Linux 
 
-- [x] Understand makefile (read docs)
-
-- [ ] Adaptation for Windows and/or Linux
+- [ ] Adaptation of the Makefile for Windows
 
 - [ ] GUI or TUI initials 
-
-- [ ] Header and function for Matrix determinant (using it all over the code, so it's really necessary)
 
 - [ ] Structure in main.c 
 
