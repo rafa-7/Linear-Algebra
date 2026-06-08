@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../include/determinant.h"
+#include "../include/det.h"
 #include "../include/scanm.h"
 
 /**
