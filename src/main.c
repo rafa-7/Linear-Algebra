@@ -21,15 +21,14 @@
 int main()
 {
     // Teste de determinante
-    int show[3][3] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
+    double show[4][4] = {
+        {1, 2, 3, 4},
+        {4, 5, 6, 7},
+        {7, 8, 9, 10},
+        {11, 12, 13, 14}
     };
 
-    printf("O determinante dessa matriz é equivalente a %d\n",det(3, show));
-
-    printf("teste.com.br\n");
+    printf("O determinante dessa matriz é equivalente a %lf\n",det(4, show));
 
     return 0;
 }
