@@ -11,28 +11,34 @@
 /*
 Para chamar a função, vamos utilizar uma matriz 4x4 como exemplo:
 
-    int matrizTeste[4][4] =
+    double matrizTeste[4][4] =
     {
         {1, 2, 3.2, 5},
         {3, 4, 290.23, 3.14159},
         {0, 8, 900, 325},
-        {1, 6, 7, 3.14159},
+        {1, 6, 7, 3.14159}
     };
 
-    printf("det(A)=%.1lf\n",det(2, matrizTeste));
+    printf("det(A)=%.1lf\n",det(4, matrizTeste));
     Isso retorna o determinante
 */
 
-void subMatrix(int ordem, double a[ordem][ordem], subMatrix[tamanho][tamanho], int colunaDel, int ordemAtual)
+// O static garante que a função somente existirá dentro desse arquivo C e não irá para a main
+static void subMatrix(int ordem, double a[ordem][ordem], double subMatrix[ordem - 1][ordem - 1], int colunaDel)
 {
     int linhaSub = 0;
 
+    // Com a primeira linha descartada, é preciso começar na linha 1
     for (int i = 1; i < ordem; i++)
     {
         int colunaSub = 0;
         for (int j = 0; j < ordem; j++)
         {
-            if (j == colunaDel) continue;
+            if (j == colunaDel)
+            {
+                continue;
+            } 
+
             subMatrix[linhaSub][colunaSub] = a[i][j];
             colunaSub++;
         }
@@ -63,7 +69,7 @@ double det(int ordem, double a[ordem][ordem])
         double resultadoDet = 0.0;
         int sinal = 1;
 
-        double matrixRedu[ordem][ordem];
+        double matrixRedu[ordem - 1][ordem - 1];
 
         
         for (int j = 0; j < ordem; j++)
