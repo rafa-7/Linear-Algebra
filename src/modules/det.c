@@ -86,7 +86,7 @@ double det(int ordem, double a[ordem][ordem])
             double elemento = a[0][j];
 
             // Pulando elementos equivalentes a zero
-            if (elemnto == 0.0)
+            if (elemento == 0.0)
             {
                 sinal = -sinal;
                 continue; 
