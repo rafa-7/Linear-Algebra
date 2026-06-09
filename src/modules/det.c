@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../../include/det.h"
 
 // O determinante pode apenas ser calculado para matrizes quadradas
@@ -134,7 +133,8 @@ double det(int ordem, double a[ordem][ordem])
     }
     else
     {
-        printf("Digite uma ordem válida!\n");
+        // Função apenas encerra
+        // Realizar o tratamento de ordem diretamente na main
         return 1;
     }
 }
