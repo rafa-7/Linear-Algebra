@@ -8,7 +8,7 @@ CFLAGS=-Iinclude
 all: bin/LinearAlgebra
 
 # Binary
-bin/LinearAlgebra: build/main.o build/determinant.o
+bin/LinearAlgebra: build/main.o build/det.o
 	@echo "Unifying all files"
 	@$(CC) $(CFLAGS) build/main.o build/det.o -o bin/LinearAlgebra
 
@@ -35,4 +35,4 @@ build/scanm.o: src/modules/scanm.c
 
 clean:
 	@echo "Removing executable files"
-	@rm -f build/main.o build/determinant.o build/scanm.o bin/LinearAlgebra
+	@rm -f build/main.o build/det.o build/scanm.o bin/LinearAlgebra
