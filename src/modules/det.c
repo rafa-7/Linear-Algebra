@@ -60,13 +60,21 @@ double det(int ordem, double a[ordem][ordem])
     else if (ordem == 3)
     {
         // Regra de Sarrus decomposta
-        return a[0][0] * a[1][1] * a[2][2] + a[0][1] * a[1][2] * a[2][0] + a[0][2] * a[1][0] * a[2][1] - a[0][2] * a[1][1] * a[2][0] - a[0][0] * a[1][2] * a[2][1] - a[0][1] * a[1][0] * a[2][2];
+        return a[0][0] * a[1][1] * a[2][2] + 
+                a[0][1] * a[1][2] * a[2][0] + 
+                a[0][2] * a[1][0] * a[2][1] - 
+                a[0][2] * a[1][1] * a[2][0] - 
+                a[0][0] * a[1][2] * a[2][1] - 
+                a[0][1] * a[1][0] * a[2][2];
     }
     else if (ordem >= 4)
     {
         // Teorema de Laplace 
         // Escolheremos sempre a primeira linha pra facilitar o cálculo
+        // Iniciando como 0 para soma depois
         double resultadoDet = 0.0;
+
+        // Definindo sinal = 1 para não alterar o resultado na multiplicação
         int sinal = 1;
 
         double matrixRedu[ordem - 1][ordem - 1];
@@ -77,7 +85,49 @@ double det(int ordem, double a[ordem][ordem])
             subMatrix(ordem, a, matrixRedu, j);
             double elemento = a[0][j];
 
+            // Pulando elementos equivalentes a zero
+            if (elemnto == 0.0)
+            {
+                sinal = -sinal;
+                continue; 
+            }
+
+            // Cálculo do cofator
+            /*
+                Para comparação com a fórmula:
+
+                Cij = (-1)^i+j * Dij
+
+                Para:
+
+                Cij: Cofator a ser calculado
+                i: Linha do elemento
+                j: Coluna do elemento
+                Dij: Determinante da submatriz criada
+
+            */
+
+            /*
+                Aqui teremos a multiplicação do primeiro elemento pelo seu cofator somando 
+                posteriormente a multiplicação do segundo elemento pelo seu cofator e assim por diante (seguindo a fórmula).
+            */ 
             resultadoDet += sinal * elemento * det(ordem - 1, matrixRedu);
+
+            // O sinal varia sempre dessa maneira para o cálculo do cofator:
+            /*
+                Para matrizes 3x3:
+                +   -   +
+                -   +   -
+                +   -   +
+
+                Para matrizes 4x4:
+                +   -   +   -
+                -   +   -   +
+                +   -   +   -
+                -   +   -   +
+
+                O sinal sempre começa positivo e posteriormente é negativado na próxima coluna/linha
+            */
             sinal = -sinal;
         }
         return resultadoDet;
