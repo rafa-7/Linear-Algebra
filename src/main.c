@@ -2,6 +2,7 @@
 #include <string.h>
 #include "../include/det.h"
 #include "../include/scanm.h"
+#include "../include/autov.h"
 
 /**
  *    .____    .__                                             
@@ -29,6 +30,13 @@ int main()
     };
 
     printf("O determinante dessa matriz é equivalente a %lf\n",det(4, show));
+
+    // x² - 3x + 2 = 0
+    // Essa retorna duas raízes inteiras (1 e 2), para teste
+    
+    raizes equacao = bhaskara(1.0, -3.0, 2.0);
+    printf("%lf\n", equacao.delta1);
+    printf("%lf\n", equacao.delta2);
 
     return 0;
 }
