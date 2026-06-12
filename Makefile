@@ -1,8 +1,14 @@
 # To switch compilators, just retype this part
 CC=gcc
 
-# Flag used to search for headers
-CFLAGS=-Iinclude
+# Everything that needs compiling
+OBJS=build/det.o build/autov.o build/main.o
+
+# Flags used for compiling
+# -Wall shows every alert
+# -I uses headers
+CFLAGS=-Wall -I include
+
 
 # Final binary
 all: bin/LinearAlgebra
@@ -10,7 +16,7 @@ all: bin/LinearAlgebra
 # Binary
 bin/LinearAlgebra: build/main.o build/det.o
 	@echo "Unifying all files"
-	@$(CC) $(CFLAGS) build/main.o build/det.o -o bin/LinearAlgebra
+	@$(CC) $(OBJS) -o bin/LinearAlgebra
 
 # The flag "-c" compiles the file as a part of the main (object file) not linking it directly
 # To link all the files, just type the binaries before the flag
@@ -23,16 +29,16 @@ bin/LinearAlgebra: build/main.o build/det.o
 
 build/main.o: src/main.c
 	@echo "Compiling main"
-	@$(CC) src/main.c -c -o build/main.o
+	@$(CC) $(CFLAGS) src/main.c -c -o build/main.o
 
 build/det.o: src/modules/det.c
 	@echo "Compiling determinant function"
 	@$(CC) $(CFLAGS) src/modules/det.c -c -o build/det.o
 
-build/scanm.o: src/modules/scanm.c
-	@echo "Compiling main"
-	@$(CC) src/modules/scanm.c -c -o build/scanm.o
+build/autov.o: src/modules/autov.c
+	@echo "Compiling Eigenvalue and Eigenvector function"
+	@$(CC) $(CFLAGS) src/modules/autov.c -c -o build/autov.o
 
 clean:
 	@echo "Removing executable files"
-	@rm -f build/main.o build/det.o build/scanm.o bin/LinearAlgebra
+	@rm $(OBJS) bin/LinearAlgebra
