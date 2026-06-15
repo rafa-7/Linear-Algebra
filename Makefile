@@ -7,16 +7,16 @@ OBJS=build/det.o build/autov.o build/main.o
 # Flags used for compiling
 # -Wall shows every alert
 # -I uses headers
-CFLAGS=-Wall -I include
+CFLAGS=-Wall -Iinclude
 
 
 # Final binary
 all: bin/LinearAlgebra
 
 # Binary
-bin/LinearAlgebra: build/main.o build/det.o
+bin/LinearAlgebra: build/main.o build/det.o build/autov.o
 	@echo "Unifying all files"
-	@$(CC) $(OBJS) -o bin/LinearAlgebra
+	@$(CC) $(OBJS) -o bin/LinearAlgebra -lm
 
 # The flag "-c" compiles the file as a part of the main (object file) not linking it directly
 # To link all the files, just type the binaries before the flag
@@ -37,7 +37,7 @@ build/det.o: src/modules/det.c
 
 build/autov.o: src/modules/autov.c
 	@echo "Compiling Eigenvalue and Eigenvector function"
-	@$(CC) $(CFLAGS) src/modules/autov.c -c -o build/autov.o
+	@$(CC) $(CFLAGS) -lm src/modules/autov.c -c -o build/autov.o
 
 clean:
 	@echo "Removing executable files"
