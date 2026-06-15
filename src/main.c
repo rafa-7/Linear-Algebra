@@ -21,22 +21,40 @@
 
 int main()
 {
-    // Teste de determinante
-    double show[4][4] = {
+    // Matriz pra teste 4x4
+    double test4[4][4] = {
         {1, 2, 3, 4},
         {4, 5, 6, 7},
         {7, 8, 9, 10},
         {11, 12, 13, 14}
     };
 
-    printf("O determinante dessa matriz é equivalente a %lf\n",det(4, show));
+    // Matriz pra teste 3x3
+    double test3[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
 
-    // x² - 3x + 2 = 0
-    // Essa retorna duas raízes inteiras (1 e 2), para teste
-    
-    raizes equacao = bhaskara(1.0, -3.0, 2.0);
-    printf("%lf\n", equacao.delta1);
-    printf("%lf\n", equacao.delta2);
+    // Matriz pra teste 2x2
+    double test2[2][2] = {
+        {1, 2},
+        {3, 4}
+    };
+
+    // Matriz pra teste 1x1
+    double test1[1][1] = {
+        {1}
+    };
+
+    printf("O determinante dessa matriz é equivalente a %lf\n",det(2, test2));
+
+
+    double res1;
+    double res2;
+    autova(2, test2, &res1, &res2);
+
+    printf("Os autovalores são: A1 = %lf\nA = 2 %lf", res1, res2);
 
     return 0;
 }
