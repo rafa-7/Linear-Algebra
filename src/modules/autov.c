@@ -7,7 +7,7 @@
 
 // O static garante que a função somente existirá dentro desse arquivo C e não irá para a main
 // Definir como static
-raizes bhaskara(double a, double b, double c)
+static raizes bhaskara(double a, double b, double c)
 {
     double delta = (b * b) - (4 * a * c);
     raizes deltas;
@@ -27,39 +27,28 @@ raizes bhaskara(double a, double b, double c)
     }
 }
 
-// Usada no autov pra cálculo de matrizes identidades
-static void iMatrix(int ordem, double matriz[ordem][ordem], double matrizIden[ordem][ordem])
-{
-    for (int i = 0; i < ordem; i++)
-    {
-        for (int j = 0; j < ordem; j++)
-        {
-            matrizIden[i][j] = matriz[i][j];
-
-            if(i == j)
-            {
-                matrizIden[i][j] = 1.0;
-            }
-            else
-            {
-                matrizIden[i][j] = 0.0;
-            }
-        }
-    }
-}
 
 // Receber uma matriz de ordem no máximo 2x2
 // Retornar autovetores e autovalores
-double autov(int ordem, double matriz[ordem][ordem])
+void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2)
 {
-    double matrizI[ordem][ordem];
-    if(ordem > 2)
+    // Cálculo para os autovalores  
+    if (ordem == 2)
     {
-        return 1;
+        double traco = matriz[0][0] + matriz[1][1];
+        double detMatriz = det(2, matriz);
+        raizes eq = bhaskara(1, traco, detMatriz);
+
+        // Printar autova1 e autova2 na main
+        *autova1 = *eq.delta1;
+        *autova2 = *eq.delta2;
+    }
+    else if (ordem == 1)
+    { 
+        *autova1 = matriz[0][0];
     }
     else
     {
-        // Fim
-        return 1;
+        return;
     }
 }
