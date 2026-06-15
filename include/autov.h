@@ -9,4 +9,4 @@ typedef struct
 
 raizes bhaskara(double a, double b, double c);
 
-double autov(int ordem, double matriz[ordem][ordem]);
+void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2);
