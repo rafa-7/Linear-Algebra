@@ -8,3 +8,5 @@ typedef struct
 } raizes;
 
 raizes bhaskara(double a, double b, double c);
+
+double autov(int ordem, double matriz[ordem][ordem]);
