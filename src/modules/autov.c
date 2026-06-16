@@ -1,5 +1,7 @@
 #include "../../include/autov.h"
+#include "../../include/det.h"
 #include <math.h>
+#include <stdio.h>
 
 // Objetivo:
 // Calcular autovalores e autovetores
@@ -40,15 +42,27 @@ void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *aut
         raizes eq = bhaskara(1, traco, detMatriz);
 
         // Printar autova1 e autova2 na main
-        *autova1 = *eq.delta1;
-        *autova2 = *eq.delta2;
+        *autova1 = eq.delta1;
+        *autova2 = eq.delta2;
     }
     else if (ordem == 1)
     { 
         *autova1 = matriz[0][0];
+
+        // Retornando Not A Number apenas caso seja necessário printar algo para autova2
+        *autova2 = NAN;
     }
     else
     {
         return;
     }
+}
+
+// Matrizes de ordem no máximo 2
+// Receber autovalores e matriz para cálculo de autovetores
+double autove(int ordem, double matriz[ordem][ordem], double autova1, double autova2)
+{
+    return 1;
+
+
 }
