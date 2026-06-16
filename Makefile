@@ -11,6 +11,8 @@ CFLAGS=-Wall -Iinclude
 
 
 # Final binary
+# bin/Playground for testing isolated functions
+# bin/LinearAlgebra for testing everything together
 all: bin/LinearAlgebra
 
 # Binary
@@ -38,6 +40,7 @@ build/det.o: src/modules/det.c
 build/autov.o: src/modules/autov.c
 	@echo "Compiling Eigenvalue and Eigenvector function"
 	@$(CC) $(CFLAGS) -lm src/modules/autov.c -c -o build/autov.o
+
 
 clean:
 	@echo "Removing executable files"

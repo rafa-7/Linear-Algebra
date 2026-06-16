@@ -8,7 +8,7 @@
 #include "../include/scanm.h"
 #include "../include/autov.h"
 
-int main(int argc, char *argc[])
+int main()
 {
 
 
