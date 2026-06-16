@@ -7,6 +7,4 @@ typedef struct
     double delta2;
 } raizes;
 
-raizes bhaskara(double a, double b, double c);
-
 void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2);
