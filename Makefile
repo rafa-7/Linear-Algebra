@@ -6,7 +6,7 @@ OBJS=build/det.o build/autov.o build/main.o
 
 # Flags used for compiling
 # -Wall shows every alert
-# -I uses headers
+# -I searches for headers
 CFLAGS=-Wall -Iinclude
 
 
