@@ -58,18 +58,14 @@ Para instruções ou prints na main, utilizarei somente português -->
 - Matrix Diagonalization
 
 ## Tasks
-<!-- No máximo 7 Tasks aqui -->
 
-- [x] Header and function for Matrix determinant (using it all over the code, so it's really necessary)
+- [x] GUI or TUI initials 
 
-<!-- Apenas usar uname -->
-- [x] Adaptation of the Makefile for Linux 
+- [ ] Structure in main.c for GUI
 
-- [ ] Adaptation of the Makefile for Windows
+- [ ] Finish autov.c
 
-- [ ] GUI or TUI initials 
-
-- [ ] Structure in main.c 
+- [ ] Finish escal.c
 
 ## Compiling and running
 
