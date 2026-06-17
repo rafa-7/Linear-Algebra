@@ -4,7 +4,7 @@ CC=gcc
 # Everything that needs compiling
 # Just alter here for any new functions (or older)
 # For playground, just put playground at the end here:
-OBJS=build/det.o build/autov.o build/main.o
+OBJS=build/det.o build/autov.o build/scanm.o build/main.o
 
 # Flags used for compiling
 # -Wall shows every alert
@@ -51,6 +51,14 @@ build/autov.o: src/modules/autov.c
 build/escal.o: src/modules/escal.c
 	@echo "Compiling escal function"
 	@$(CC) $(CFLAGS) src/modules/escal.c -c -o build/escal.o
+
+build/scanm.o: src/modules/scanm.c
+	@echo "Compiling scan matrices function"
+	@$(CC) $(CFLAGS) src/modules/scanm.c -c -o build/scanm.o
+
+build/printm.o: src/modules/printm.c
+	@echo "Compiling print matrices function"
+	@$(CC) $(CFLAGS) src/modules/printm.c -c -o build/printm.o
 
 clean:
 	@echo "Removing executable files"
