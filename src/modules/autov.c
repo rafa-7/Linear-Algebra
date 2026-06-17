@@ -60,7 +60,7 @@ void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *aut
 
 // Matrizes de ordem no máximo 2
 // Receber autovalores e matriz para cálculo de autovetores
-double autove(int ordem, double matriz[ordem][ordem], double autova1, double autova2)
+double autove(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2)
 {
     return 1;
 
