@@ -54,4 +54,4 @@ build/escal.o: src/modules/escal.c
 
 clean:
 	@echo "Removing executable files"
-	@rm $(OBJS) bin/LinearAlgebra bin/Playground
+	@rm $(OBJS) $(TARGET)
