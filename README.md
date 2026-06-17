@@ -63,6 +63,8 @@ Para instruções ou prints na main, utilizarei somente português -->
 
 - [ ] Structure in main.c for GUI
 
+- [ ] Use type raizes as a parameter for autove function
+
 - [ ] Finish autov.c
 
 - [ ] Finish escal.c
