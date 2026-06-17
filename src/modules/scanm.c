@@ -3,11 +3,11 @@
 
 // Essa função vai ser usada na diagonalização de matrizes
 // task: Transformar em void
-int scanm(int tamanho, double a[tamanho][tamanho])
+void scanm(int tamanho, double a[tamanho][tamanho])
 {
-    for (int i = 0; i < 0; i++)
+    for (int i = 0; i < tamanho; i++)
     {
-        for (int j = 0; j < 0; j++)
+        for (int j = 0; j < tamanho; j++)
         {
             scanf("%lf", &a[i][j]);
         }
