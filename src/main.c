@@ -10,6 +10,7 @@
 int main()
 {
     bool tui = true;
+    
     // Limpa a tela antes
     system("clear");
 
@@ -17,6 +18,7 @@ int main()
     while (tui)
     {
         int escolha;
+        char continuar;
 
         
 
@@ -35,47 +37,106 @@ int main()
             "            \\/       \\/     \\/     \\/                 \n"
         "\n");
     
-        printf("O que deseja fazer?\n");    
-        printf("(1) Resolver sistemas lineares\n");
-        printf("(2) Verificar Injetividade, Sobrejetividade e Bijetividade\n");
-        printf("(3) Determinar bases\n");
-        printf("(4) Calcular autovalores e/ou autovetores\n");
-        printf("(5) Diagonalização de matrizes\n");
-        printf("(0) Finalizar programa");
-        printf("\n> ");
+        printf("O que deseja fazer?\n"    
+               "(1) Resolver sistemas lineares\n"
+               "(2) Verificar Injetividade, Sobrejetividade e Bijetividade\n"
+               "(3) Determinar bases\n"
+               "(4) Calcular autovalores e/ou autovetores\n"
+               "(5) Diagonalização de matrizes\n"
+               "(6) Calcular determinantes\n"
+               "(0) Finalizar programa\n"
+               "\n> ");
+
         scanf("%d", &escolha);
 
         switch (escolha)
         {
             case 1:
             {
+
+                tui = false;
                 break;
             }
                 
             case 2:
             {
+                tui = false;
                 break;
             }
                 
             case 3:
             {
+                tui = false;
                 break;
             }
             
             case 4:
             {
+                int ordem;
+                double res1, res2, res3, res4;
+
+                printf("Digite a ordem da matriz quadrada (nxn)\n> ");
+                scanf("%d", &ordem);
+
+                if (ordem < 1 || ordem > 2)
+                {
+                    printf("Digite uma ordem válida!\n\n");
+                    break;
+                }
+
+                double matrizAtv[ordem][ordem];
+                scanm(ordem, matrizAtv);
+                autova(ordem, matrizAtv, &res1, &res2);
+                autove(ordem, matrizAtv, &res3, &res4);
+
+                printf("Os autovalores são: A1 = %.2lf\n"
+                       "A2 = %.2lf\n\n", res1, res2
+                );
+
+                printf("Os autovetores são: A1 = %.2lf\n"
+                       "A2 = %.2lf\n\n", res3, res4
+                );
+
+                tui = false;
                 break;
             }
             
             case 5:
             {
+                tui = false;
                 break;
+            }
+
+            case 6:
+            {
+                int ordem;
+                
+
+                printf("Digite a ordem da matriz quadrada (nxn)\n> ");
+                scanf("%d", &ordem);
+
+                if (ordem < 1)
+                {
+                    printf("Digite uma ordem válida!\n\n");
+                    break;
+                }
+                double matrizDet[ordem][ordem];
+
+                printf("Digite a matriz:\n");
+
+                scanm(ordem, matrizDet);
+                printf("\nO determinante da matriz é: %.2lf\n\n", det(ordem, matrizDet));
+
+                break;
+
+
             }
                 
             case 0:
             {
-                printf("Programa encerrado.\n\n");
+                printf("\nPrograma encerrado.\n");
                 tui = false;
+                return 0;
                 break;
             }
                 
@@ -85,7 +146,20 @@ int main()
                 tui = false;
                 break;
             }
-        } 
+        }
+
+        printf("Deseja voltar ao menu inicial? (y/n)\n> ");
+        scanf(" %c", &continuar);
+
+        if (continuar == 'y')
+        {
+            tui = true;
+        }
+        else
+        {
+            tui = false;
+        }
+        
     }
 }
 
