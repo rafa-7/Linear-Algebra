@@ -32,7 +32,7 @@ static raizes bhaskara(double a, double b, double c)
 
 // Receber uma matriz de ordem no máximo 2x2
 // Retornar autovetores e autovalores
-void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2)
+raizes autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2)
 {
     // Cálculo para os autovalores  
     if (ordem == 2)
@@ -40,17 +40,15 @@ void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *aut
         double traco = matriz[0][0] + matriz[1][1];
         double detMatriz = det(2, matriz);
         raizes eq = bhaskara(1, traco, detMatriz);
-
-        // Printar autova1 e autova2 na main
-        *autova1 = eq.delta1;
-        *autova2 = eq.delta2;
+        return eq;
     }
     else if (ordem == 1)
     { 
-        *autova1 = matriz[0][0];
+        raizes va1; 
+        va1.delta1 = matriz[0][0];
+        
+        return va1;
 
-        // Retornando Not A Number apenas caso seja necessário printar algo para autova2
-        *autova2 = NAN;
     }
     else
     {
@@ -60,7 +58,7 @@ void autova(int ordem, double matriz[ordem][ordem], double *autova1, double *aut
 
 // Matrizes de ordem no máximo 2
 // Receber autovalores e matriz para cálculo de autovetores
-double autove(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2)
+double autove(int ordem, double matriz[ordem][ordem], raizes valores)
 {
     return 1;
 
