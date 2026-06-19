@@ -7,6 +7,6 @@ typedef struct
     double delta2;
 } raizes;
 
-raizes autova(int ordem, double matriz[ordem][ordem], double *autova1, double *autova2);
+void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores);
 
 double autove(int ordem, double matriz[ordem][ordem], raizes valores);
