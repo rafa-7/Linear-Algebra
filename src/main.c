@@ -11,10 +11,14 @@ int main()
 {
     bool tui = true;
     
-    // Limpa a tela antes
+    // Verifica o sistema operacional e limpa a tela antes
+    #ifdef _WIN32
+    system("cls");
+    #elif __linux__
     system("clear");
+    #endif
 
-    // TUI (Terminal User-Interface)
+    // TUI (Terminal User-Interface) 
     while (tui)
     {
         int escolha;
@@ -37,6 +41,7 @@ int main()
             "            \\/       \\/     \\/     \\/                 \n"
         "\n");
     
+        // Apesar de muito pouco, declarar um printf assim economiza processamento
         printf("O que deseja fazer?\n"    
                "(1) Resolver sistemas lineares\n"
                "(2) Verificar Injetividade, Sobrejetividade e Bijetividade\n"
@@ -73,7 +78,9 @@ int main()
             case 4:
             {
                 int ordem;
-                double res1, res2, res3, res4;
+
+                // Tipo raizes declarado no autov.h
+                raizes autovae;
 
                 printf("Digite a ordem da matriz quadrada (nxn)\n> ");
                 scanf("%d", &ordem);
@@ -86,16 +93,23 @@ int main()
 
                 double matrizAtv[ordem][ordem];
                 scanm(ordem, matrizAtv);
-                autova(ordem, matrizAtv, &res1, &res2);
-                autove(ordem, matrizAtv, &res3, &res4);
+                autova(ordem, matrizAtv, &autovae);
+                autove(ordem, matrizAtv, autovae);
+                if (ordem == 1)
+                {
+                    printf("Os autovalores são: A1 = %.2lf\n", autovae.delta1);
+                }
+                else
+                {
+                    printf("Os autovalores são: A1 = %.2lf\n"
+                        "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
+                    );
 
-                printf("Os autovalores são: A1 = %.2lf\n"
-                       "A2 = %.2lf\n\n", res1, res2
-                );
+                }
 
-                printf("Os autovetores são: A1 = %.2lf\n"
-                       "A2 = %.2lf\n\n", res3, res4
-                );
+                // printf("Os autovetores são: A1 = %.2lf\n"
+                //        "A2 = %.2lf\n\n", 
+                // );
 
                 tui = false;
                 break;
