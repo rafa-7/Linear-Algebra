@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/rafael/Documentos/Linear-Algebra/build",
+  "command": "/usr/bin/cc   -g -o CMakeFiles/main.dir/src/main.c.o -c /home/rafael/Documentos/Linear-Algebra/src/main.c",
+  "file": "/home/rafael/Documentos/Linear-Algebra/src/main.c",
+  "output": "CMakeFiles/main.dir/src/main.c.o"
+}
+]
