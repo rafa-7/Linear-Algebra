@@ -56,25 +56,29 @@ int main()
 
         switch (escolha)
         {
+            // Resolver sistemas lineares
             case 1:
             {
 
                 tui = false;
                 break;
             }
-                
+             
+            // Verificar Injetividade, Sobrejetividade e Bijetividade
             case 2:
             {
                 tui = false;
                 break;
             }
-                
+            
+            // Determinar bases
             case 3:
             {
                 tui = false;
                 break;
             }
             
+            // Calcular autovalores e/ou autovetores
             case 4:
             {
                 int ordem;
@@ -94,10 +98,11 @@ int main()
                 double matrizAtv[ordem][ordem];
                 scanm(ordem, matrizAtv);
                 autova(ordem, matrizAtv, &autovae);
-                autove(ordem, matrizAtv, autovae);
+                autove(ordem, matrizAtv, &autovae);
                 if (ordem == 1)
                 {
                     printf("Os autovalores são: A1 = %.2lf\n", autovae.delta1);
+                    printf("OS autovetores são qualquer valor diferente de 0!\n\n");
                 }
                 else
                 {
@@ -105,22 +110,24 @@ int main()
                         "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
                     );
 
+
+
                 }
 
-                // printf("Os autovetores são: A1 = %.2lf\n"
-                //        "A2 = %.2lf\n\n", 
-                // );
+                
 
                 tui = false;
                 break;
             }
             
+            // Diagonalização de matrizes
             case 5:
             {
                 tui = false;
                 break;
             }
 
+            // Calcular determinantes
             case 6:
             {
                 int ordem;
