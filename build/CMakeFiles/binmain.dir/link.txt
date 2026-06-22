@@ -1,1 +1,0 @@
-/usr/bin/cc -g -Wl,--dependency-file=CMakeFiles/binmain.dir/link.d CMakeFiles/binmain.dir/src/main.c.o -o binmain
