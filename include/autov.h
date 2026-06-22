@@ -9,4 +9,4 @@ typedef struct
 
 void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores);
 
-double autove(int ordem, double matriz[ordem][ordem], raizes valores);
+void autove(int ordem, double matriz[ordem][ordem], raizes *valores);
