@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "../include/det.h"
 #include "../include/scanm.h"
 #include "../include/autov.h"
@@ -59,6 +60,33 @@ int main()
             // Resolver sistemas lineares
             case 1:
             {
+                int linhas;
+                int colunas;
+
+                printf("Defina quantas linhas tem o sistema linear (x, y, z , etc . . .)\n> ");
+                scanf("%d", &linhas);
+
+                printf("Defina quantas variáveis tem o sistema linear (x, y, z , etc . . .)\n> ");
+                scanf("%d", &colunas);
+                
+                double coeficientes[linhas][colunas];
+
+                for (int i = 0; i < linhas; i++)
+                {
+                    for (int j = 0; j < colunas + 2; j++)
+                    {
+                        scanf("%s", &sistema[i][j]);
+                    }
+                }
+
+                
+
+                // Melhor pedir pelos coeficientes, vamos perguntar pro professor hj em relação a isso
+                // printf("Defina o sistema linear (Ex: 2x-y+12z , etc . . .)\n");
+                // printf("Coloque os sinais e não use espaço!\n");
+                
+
+                
 
                 tui = false;
                 break;
@@ -99,6 +127,7 @@ int main()
                 scanm(ordem, matrizAtv);
                 autova(ordem, matrizAtv, &autovae);
                 autove(ordem, matrizAtv, &autovae);
+
                 if (ordem == 1)
                 {
                     printf("Os autovalores são: A1 = %.2lf\n", autovae.delta1);
@@ -106,11 +135,14 @@ int main()
                 }
                 else
                 {
+                    
                     printf("Os autovalores são: A1 = %.2lf\n"
                         "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
                     );
 
-
+                    printf("OS autovetores são: A1 = %.2lf\n" 
+                        "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
+                    );
 
                 }
 
