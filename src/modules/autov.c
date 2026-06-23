@@ -60,7 +60,7 @@ void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores)
 void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
 {
     // Qualquer número diferente de 0 se enquadra como um autovetor de matrizes 1x1
-    if (ordem == 1) return 1;
+    if (ordem == 1) return;
 
     // Para o primeiro autovalor
 
@@ -70,12 +70,12 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
     // Cálculo do sistema linear gerado . . . (escalonamento)
 
     // Para o segundo autovalor
-    matriz[0][0] -= valores.delta2;
-    matriz[1][1] -= valores.delta2;
+    matriz[0][0] -= valores->delta2;
+    matriz[1][1] -= valores->delta2;
 
     // Cálculo do sistema linear gerado . . . (escalonamento)
 
-    return 1;
+    return;
 
 
 }
