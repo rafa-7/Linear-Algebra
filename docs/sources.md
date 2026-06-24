@@ -12,6 +12,6 @@
 
 - [Gauss Elimination code.py (stackoverflow)](https://stackoverflow.com/questions/22057915/adding-pivoting-to-the-following-gauss-elimination-code)
 
-- [Gaus Elimination in C(stackoverflow)](https://stackoverflow.com/questions/70908168/gauss-elimination-in-c)
+- [Gaus Elimination in C (stackoverflow)](https://stackoverflow.com/questions/70908168/gauss-elimination-in-c)
 
 - [inverse of a matrix by gauss elimination method](https://stackoverflow.com/questions/30367616/inverse-of-a-matrix-by-gauss-elimination-method)
