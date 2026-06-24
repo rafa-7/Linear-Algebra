@@ -9,3 +9,9 @@
 - [Another Professional Structure in C](https://www.lucavall.in/blog/how-to-structure-c-projects-my-experience-best-practices)
 
 - [Makefile: docs](https://www.gnu.org/software/make/manual/make.html)
+
+- [Gauss Elimination code.py (stackoverflow)](https://stackoverflow.com/questions/22057915/adding-pivoting-to-the-following-gauss-elimination-code)
+
+- [Gaus Elimination in C](https://stackoverflow.com/questions/70908168/gauss-elimination-in-c)
+
+- [inverse of a matrix by gauss elimination method](https://stackoverflow.com/questions/30367616/inverse-of-a-matrix-by-gauss-elimination-method)
