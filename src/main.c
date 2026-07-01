@@ -6,6 +6,7 @@
 #include "../include/det.h"
 #include "../include/scanm.h"
 #include "../include/autov.h"
+#include "../include/escal.h"
 
 
 int main()
@@ -45,7 +46,7 @@ int main()
         // Apesar de muito pouco, declarar um printf assim economiza processamento
         printf("O que deseja fazer?\n"    
                "(1) Resolver sistemas lineares\n"
-               "(2) Verificar Injetividade, Sobrejetividade e Bijetividade\n"
+               "(2) Dimensão do núcleo, Dimensão da imagem, Verificar Injetividade, Sobrejetividade e Bijetividade\n"
                "(3) Determinar bases\n"
                "(4) Calcular autovalores e/ou autovetores\n"
                "(5) Diagonalização de matrizes\n"
@@ -62,6 +63,10 @@ int main()
             {
                 int linhas;
                 int colunas;
+                int linhas, colunas;
+                double matriz_coeficientes[MAX_ROWS][MAX_COLS];
+                double termos_constantes[MAX_ROWS];
+                double saida[MAX_COLS]; // onde vai ficar salvo x, y e z
 
                 printf("Defina quantas linhas tem o sistema linear (x, y, z , etc . . .)\n> ");
                 scanf("%d", &linhas);
@@ -78,7 +83,7 @@ int main()
                         scanf("%s", &sistema[i][j]);
                     }
                 }
-
+                chamar a função escal
                 
 
                 // Melhor pedir pelos coeficientes, vamos perguntar pro professor hj em relação a isso

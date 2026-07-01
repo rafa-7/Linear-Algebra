@@ -1,63 +1,138 @@
 #include <stdio.h>
+#include <math.h>
 
-// !------------------------------------------------------------------
-// TODO : Método do Escalonamento para resolução de sistemas lineares.
-// !------------------------------------------------------------------
-// TODO : Tamanhos aceitos: 2x2, 3x3, 3x2, 2x3.
-// !------------------------------------------------------------------
+#define MAX_ROWS 3 // define o tamanho máximo que podera ser aceito nos sistemas
+#define MAX_COLS 3 // define o tamanho máximo que podera ser aceito nos sistemas
 
-// ---------------------
-int matriz[3][3] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-};
-// ---------------------
-int main(){
+// Agora a função retorna o Posto (Rank) da matriz, essencial para classificar o sistema depois
+int escalonamento(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constantes[MAX_ROWS], int linhas, int colunas, double saida[MAX_COLS]);
 
 
-identificar_pivos(3, 3, matriz);
+// ? Resolve um sistema linear de até 3x3 usando o método do escalonamento
+// ? (Eliminação de Gauss).
 
-    return 0;
-}
+// ? Retorno:
+// ? 1 se encontrou solução única
+// ? 0 se o sistema não tem solução única (indeterminado ou impossivel)
 
-// TODO :--------------------Chamadas de Funções-----------------------------------------------
-// Todo :--------------------Sequência de Passos-----------------------------------------------
-//    copiar_matriz_temporaria();
-//    identificar_pivo(); // Identifica o próximo pivô que sera utilizado na matriz.
-//    encontrar_fator_multi_pivo(); // Encontra o fator do pivô para igualá-lo a 1, PELA DIVISÃO [ PIVO = número que eu quero zerar / número acima ]
-//    zera_elementos_abaixo_pivo(); // Zera os elementos embaixo do pivô atual
-// Todo :---------Realizar os passos acima para deixar a matriz escalonada---------------------
-//    substituicao_retroativa(); // exemplo, sobrou 3z = 9; você deve fazer z = 9/3; RESUMINDO, descobrir o valor das incognitas por de cima para baixo, agora que descobriu o Z, consegue descobrir o Y
-// --------------------------------------------------------------------------------------
+int main() {
+    int linhas, colunas;
+    double matriz_coeficientes[MAX_ROWS][MAX_COLS];
+    double termos_constantes[MAX_ROWS];
+    double saida[MAX_COLS];
 
-//! ------------Variaveis-------------
+    printf("Digite o numero de linhas (equacoes): ");
+    scanf("%d", &linhas);
+    printf("Digite o numero de colunas (incognitas): ");
+    scanf("%d", &colunas);
 
-int matriz_alteravel[][]; // matriz que deverá compor os valores da matriz que será escalonada.
-int pivo;
+    if (linhas < 1 || linhas > MAX_ROWS || colunas < 1 || colunas > MAX_COLS) {
+        printf("Dimensoes invalidas. Maximo e 3x3.\n");
+        return 1;
+    }
 
-int copia_matriz(int linha, int coluna, int matriz[linha][coluna]){// ? Função para copiar os valores da matriz que será escalonada e inserir em uma matriz alteravel.
-    for(int i = 0; i< linha; i++){ 
-        for(int j = 0; j< coluna; j++){
-            matriz_alteravel[i][j] = matriz[linha][coluna];
+    printf("Digite os coeficientes da matriz (%dx%d):\n", linhas, colunas);
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            printf("matriz_coeficientes[%d][%d] = ", i, j);
+            scanf("%lf", &matriz_coeficientes[i][j]);
         }
     }
+
+    printf("Digite os termos constantes:\n");
+    for (int i = 0; i < linhas; i++) {
+        printf("termos_constantes[%d] = ", i);
+        scanf("%lf", &termos_constantes[i]);
+    }
+
+    // Inicializa o vetor de saída com zero
+    for (int j = 0; j < colunas; j++) saida[j] = 0.0;
+
+    int posto = escalonamento(matriz_coeficientes, termos_constantes, linhas, colunas, saida);
+
+    printf("\n--- Analise do Sistema ---\n");
+    printf("Posto da Matriz: %d\n", posto);
+
+    // Regras de classificação para qualquer matriz (Teorema de Rouché-Capelli)
+    if (posto == colunas && posto == linhas) {
+        printf("Sistema Possivel e Determinado (Solucao Unica).\n");
+        for (int i = 0; i < colunas; i++) {
+            printf("x%d = %.4f\n", i + 1, saida[i]);
+        }
+    } else if (posto < colunas && posto == linhas) {
+        printf("Sistema Possivel e Indeterminado (Infinitas Solucoes).\n");
+    } else {
+        // Se houver uma linha de zeros na matriz de coeficientes, mas o termo constante correspondente for diferente de zero
+        printf("Sistema Impossivel (Nao ha solucao) ou Indeterminado.\n");
+    }
+
     return 0;
 }
-int identificar_pivo(int linha, int coluna, int matriz[linha][coluna]){
 
-    for(int i = 0; i< linha; i++){ //for para colunas.
-        for(int j = 0; j< coluna; j++){ // for para linhas.
-            
-            if(matriz[linha][coluna] == 0 && matriz[linha + 1][coluna] !0 ){
-                trocar_linhas(matriz[linha][coluna],matriz[linha][coluna]);
+int escalonamento(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constantes[MAX_ROWS], int linhas, int colunas, double saida[MAX_COLS]) {
+    double aug[MAX_ROWS][MAX_COLS + 1]; // Matriz que receberá os valores da matriz original para poder ser feitas alterações, sem prejudicar a principal.
+    int i, j, k;
+
+    // Monta a matriz aumentada
+    for (i = 0; i < linhas; i++) {
+        for (j = 0; j < colunas; j++) {
+            aug[i][j] = matriz_coeficientes[i][j];
+        }
+        aug[i][colunas] = termos_constantes[i];
+    }
+
+    int linha_pivo_atual = 0;
+    int posto = 0;
+
+    // Varre coluna por coluna
+    for (k = 0; k < colunas && linha_pivo_atual < linhas; k++) {
+
+        // Encontra o maior elemento na coluna k, a partir da linha_pivo_atual para baixo
+        int linhaPivo = linha_pivo_atual;
+        double maiorValor = fabs(aug[linha_pivo_atual][k]);
+        for (i = linha_pivo_atual + 1; i < linhas; i++) {
+            if (fabs(aug[i][k]) > maiorValor) {
+                maiorValor = fabs(aug[i][k]);
+                linhaPivo = i;
             }
-            // ! OBS: Criar uma função que verifica se os valores abaixo do pivô estão zerados para poder definir o próximo pivô.
+        }
+
+        // Se o maior valor nesta coluna for zero, pulamos para a próxima coluna (Variável livre)
+        if (maiorValor < 1e-12) {
+            continue; 
+        }
+
+        // Troca as linhas, se necessário
+        if (linhaPivo != linha_pivo_atual) {
+            for (j = 0; j <= colunas; j++) {
+                double tmp = aug[linha_pivo_atual][j];
+                aug[linha_pivo_atual][j] = aug[linhaPivo][j];
+                aug[linhaPivo][j] = tmp;
+            }
+        }
+
+        // Zera os elementos abaixo do pivô na coluna k
+        for (i = linha_pivo_atual + 1; i < linhas; i++) {
+            double fator = aug[i][k] / aug[linha_pivo_atual][k];
+            for (j = k; j <= colunas; j++) {
+                aug[i][j] -= fator * aug[linha_pivo_atual][j];
+            }
+        }
+
+        posto++;
+        linha_pivo_atual++; // Avança para a próxima linha para buscar o próximo pivô
+    }
+
+    // ---- Substituição reversa (Só faz sentido se houver solução única) ----
+    if (posto == colunas && posto == linhas) {
+        for (i = linhas - 1; i >= 0; i--) {
+            double soma = aug[i][colunas];
+            for (j = i + 1; j < colunas; j++) {
+                soma -= aug[i][j] * saida[j];
+            }
+            saida[i] = soma / aug[i][i];
         }
     }
 
-    return 0;
-}
-int trocar_linhas(int linha, int coluna, int matriz[linha][coluna]){
-
+    return posto; // Retorna o posto calculado para o main tomar as decisões
 }
