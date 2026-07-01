@@ -12,7 +12,7 @@
 // ? 1 se encontrou solução única
 // ? 0 se o sistema não tem solução única (indeterminado ou impossivel)
 
-int escalonamento(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constantes[MAX_ROWS], int linhas, int colunas, double saida[MAX_COLS]) {
+int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constantes[MAX_ROWS], int linhas, int colunas, double saida[MAX_COLS]) {
     double aug[MAX_ROWS][MAX_COLS + 1]; // Matriz que receberá os valores da matriz original para poder ser feitas alterações, sem prejudicar a principal.
     int i, j, k;
 

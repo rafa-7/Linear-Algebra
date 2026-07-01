@@ -9,6 +9,7 @@
 #include "../include/escal.h"
 #include "../include/diag.h"
 #include "../include/classificar_funcao.h"
+#include "../include/scansys.h"
 
 
 int main()
@@ -80,39 +81,56 @@ int main()
             case resolverSistemas:
             {
 
-                int linhas, colunas;
-                double matriz_coeficientes[MAX_ROWS][MAX_COLS];
-                double termos_constantes[MAX_ROWS];
-                // double saida[MAX_COLS];
-
-                printf("Digite o numero de linhas (equacoes): ");
-                scanf("%d", &linhas);
-                printf("Digite o numero de colunas (incognitas): ");
-                scanf("%d", &colunas);
-
-                if (linhas < 1 || linhas > MAX_ROWS || colunas < 1 || colunas > MAX_COLS) 
-                {
-                    printf("Dimensoes invalidas. Maximo e 3x3.\n");
-                    return 1;
-                }
-
-                printf("Digite os coeficientes da matriz (%dx%d):\n", linhas, colunas);
-                for (int i = 0; i < linhas; i++) 
-                {
-                    for (int j = 0; j < colunas; j++) 
-                    {
-                        printf("matriz_coeficientes[%d][%d] = ", i, j);
-                        scanf("%lf", &matriz_coeficientes[i][j]);
-                    }
-                }
-
-                printf("Digite os termos constantes:\n");
-                for (int i = 0; i < linhas; i++) 
-                {
-                    printf("termos_constantes[%d] = ", i);
-                    scanf("%lf", &termos_constantes[i]);
-                }
+                int linhas;
+                int num_vars = 0;
+                char variaveis[MAX_COLS] = {0}; // Guarda a ordem encontrada (ex: ['x', 'y'])
                 
+                double matriz_coeficientes[MAX_ROWS][MAX_COLS] = {
+                    {0}
+                };
+                double termos_constantes[MAX_ROWS] = {0};
+
+                printf("Quantas equacoes tem o sistema linear?\n> ");
+                scanf("%d", &linhas);
+                getchar(); // Limpa o '\n' deixado pelo scanf para não quebrar o fgets
+
+                if (linhas < 1 || linhas > MAX_ROWS) {
+                    printf("Quantidade de linhas invalida.\n");
+                    break;
+                }
+
+                printf("Digite as equacoes (Ex: x+2y=4):\n");
+                for (int i = 0; i < linhas; i++) {
+                    char equacao_str[100];
+                    printf("Equacao %d: ", i + 1);
+                    fgets(equacao_str, sizeof(equacao_str), stdin);
+                    
+                    // Extrai os coeficientes diretamente da string digitada
+                    scansys(equacao_str, matriz_coeficientes[i], variaveis, &num_vars, &termos_constantes[i]);
+                }
+
+                // Exibe os dados convertidos em formato de Matriz para conferência
+                printf("\n--- Matriz Aumentada Gerada ---\n");
+                printf("Ordem das colunas identificadas: ");
+                for(int j = 0; j < num_vars; j++) 
+                {
+                    printf("  %c   ", variaveis[j]);
+                }
+
+                printf(" |  =\n");
+
+                for (int i = 0; i < linhas; i++) 
+                {
+                    for (int j = 0; j < num_vars; j++) 
+                    {
+                        printf("%6.2f ", matriz_coeficientes[i][j]);
+                    }
+                    printf("| %6.2f\n", termos_constantes[i]);
+                }
+                printf("-------------------------------\n\n");
+
+                // Próximo passo: Chame aqui sua função de escalonamento/resolução...
+                // escalonar(linhas, num_vars, matriz_coeficientes, termos_constantes);
 
                 tui = false;
                 break;

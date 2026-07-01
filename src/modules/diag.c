@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-#include "../include/diag.h"
+#include "../../include/diag.h"
+#include "../../include/det.h"
 // #include "../include/autovetores.h" // <- Inclua o header da SUA função aqui se estiver em outro arquivo
 
 int diag(double A[2][2], double D[2][2], double P[2][2]) {
