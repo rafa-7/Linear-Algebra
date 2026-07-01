@@ -5,6 +5,7 @@ typedef struct
 {
     double delta1;
     double delta2;
+    bool possuiRaiz;
 } raizes;
 
 void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores);

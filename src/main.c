@@ -10,7 +10,7 @@
 #include "../include/diag.h"
 #include "../include/classificar_funcao.h"
 #include "../include/scansys.h"
-
+#include "../include/parserAutov.h"
 
 int main()
 {
@@ -129,12 +129,12 @@ int main()
                 } 
                 else if (classificacao == 0) 
                 {
-                    printf(">>> Sistema Possivel e Indeterminado (SPI) <<<\n");
+                    printf("Sistema Possivel e Indeterminado (SPI)\n");
                     printf("O sistema possui infinitas solucoes (Variaveis livres detectadas).\n\n");
                 } 
                 else if (classificacao == -1) 
                 {
-                    printf(">>> Sistema Impossivel (SI) <<<\n");
+                    printf("Sistema Impossivel (SI)\n");
                     printf("O sistema nao possui solucao (Equacoes contraditorias).\n\n");
                 }
 
@@ -160,44 +160,56 @@ int main()
             // Calcular autovalores e/ou autovetores
             case calcAutov:
             {
-                int ordem;
-
-                // Tipo raizes declarado no autov.h
+                int ordem = 2; // Forçado em 2 para os exemplos do R² da imagem
                 raizes autovae;
+                double matrizAtv[MAX_ROWS][MAX_COLS] = {
+                    {0}
+                };
+                int modo_leitura;
 
-                printf("Digite a ordem da matriz quadrada (nxn)\n> ");
-                scanf("%d", &ordem);
+                printf("Como deseja inserir o operador linear T:R^2 -> R^2?\n");
+                printf("(1) Digitar a expressao completa - Ex: (2x+2y, -x+4y)\n");
+                printf("(2) Digitar os coeficientes da matriz um por um\n> ");
+                scanf("%d", &modo_leitura);
+                getchar(); // Limpa o buffer de quebra de linha
 
-                if (ordem < 1 || ordem > 2)
-                {
-                    printf("Digite uma ordem válida!\n\n");
-                    break;
+                if (modo_leitura == 1) {
+                    char expressao[100];
+                    printf("\nDigite o operador (Aceita fracoes como 5/2 e espacos):\n> ");
+                    fgets(expressao, sizeof(expressao), stdin);
+
+                    // Filtra os valores da string e preenche matrizAtv
+                    analisar_operador(expressao, matrizAtv);
+                } 
+                else {
+                    printf("Digite a ordem da matriz quadrada (nxn)\n> ");
+                    scanf("%d", &ordem);
+                    if (ordem < 1 || ordem > 2) {
+                        printf("Ordem invalida.\n\n");
+                        break;
+                    }
+                    scanm(ordem, matrizAtv);
                 }
 
-                double matrizAtv[ordem][ordem];
-                scanm(ordem, matrizAtv);
+                // Exibe a matriz extraída para conferência do usuário
+                printf("\n--- Matriz do Operador Gerada ---\n");
+                printf("[ %6.2f  %6.2f ]\n", matrizAtv[0][0], matrizAtv[0][1]);
+                printf("[ %6.2f  %6.2f ]\n", matrizAtv[1][0], matrizAtv[1][1]);
+                printf("---------------------------------\n");
+
+                // Executa os cálculos que criamos anteriormente
                 autova(ordem, matrizAtv, &autovae);
-                autove(ordem, matrizAtv, &autovae);
 
-                if (ordem == 1)
-                {
-                    printf("Os autovalores são: A1 = %.2lf\n", autovae.delta1);
-                    printf("OS autovetores são qualquer valor diferente de 0!\n\n");
+                if (autovae.possuiRaiz == false) {
+                    printf("\nNao existem autovalores reais para este operador (Raizes Complexas).\n\n");
+                } else {
+                    printf("\nOs autovalores encontrados sao:\n");
+                    printf("A1 = %.2lf\n", autovae.delta1);
+                    printf("A2 = %.2lf\n\n", autovae.delta2);
+
+                    printf("Calculando os autovetores associados:\n");
+                    autove(ordem, matrizAtv, &autovae);
                 }
-                else
-                {
-                    
-                    printf("Os autovalores são: A1 = %.2lf\n"
-                        "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
-                    );
-
-                    printf("OS autovetores são: A1 = %.2lf\n" 
-                        "A2 = %.2lf\n\n", autovae.delta1, autovae.delta2
-                    );
-
-                }
-
-                
 
                 tui = false;
                 break;
@@ -254,6 +266,15 @@ int main()
 
         printf("Deseja armazenar o resultado? (y/n)\n> ");
         scanf(" %c", &armazenar);
+
+        if (armazenar = 'y')
+        {
+
+        }
+        else
+        {
+            continue;
+        }
 
         printf("Deseja voltar ao menu inicial? (y/n)\n> ");
         scanf(" %c", &continuar);

@@ -21,7 +21,7 @@ CC=gcc
 # Tudo que necessita de compilação se encontra nessa variável
 # Apenas altere aqui caso queira adicionar ou retirar alguma função
 # Para trocar para o arquivo de testes, troque a main.o pelo playground.o
-OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/scansys.o build/main.o
+OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/parserAutov.o build/scansys.o build/main.o 
 
 # Todas as flags para compilação
 # -Wall mostra todos os alertas
@@ -84,6 +84,10 @@ build/classificar_funcao.o: src/modules/classificar_funcao.c
 build/scansys.o: src/modules/scansys.c
 	@echo "Compilando função para escanear sistemas lineares"
 	@$(CC) $(CFLAGS) src/modules/scansys.c -c -o build/scansys.o
+
+build/parserAutov.o: src/modules/parserAutov.c
+	@echo "Compilando função para escanear sistemas lineares"
+	@$(CC) $(CFLAGS) src/modules/parserAutov.c -c -o build/parserAutov.o
 
 clean:
 	@echo "Removendo todos os arquivos executáveis"
