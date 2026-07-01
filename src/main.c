@@ -7,6 +7,8 @@
 #include "../include/scanm.h"
 #include "../include/autov.h"
 #include "../include/escal.h"
+#include "../include/diag.h"
+#include "../include/classificar_funcao.h"
 
 
 int main()

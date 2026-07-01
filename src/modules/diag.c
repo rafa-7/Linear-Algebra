@@ -3,7 +3,7 @@
 #include "../include/diag.h"
 // #include "../include/autovetores.h" // <- Inclua o header da SUA função aqui se estiver em outro arquivo
 
-int diagonalizar_2x2(double A[2][2], double D[2][2], double P[2][2]) {
+int diag(double A[2][2], double D[2][2], double P[2][2]) {
     // 1. Calcular o Polinômio Característico: l^2 - Traço(A)*l + Det(A) = 0
     double traco = A[0][0] + A[1][1];
     double determinante = (A[0][0] * A[1][1]) - (A[0][1] * A[1][0]);
