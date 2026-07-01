@@ -4,7 +4,7 @@ CC=gcc
 # Everything that needs compiling
 # Just alter here for any new functions (or older)
 # For playground, just put playground at the end here:
-OBJS=build/det.o build/autov.o build/scanm.o build/main.o
+OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/main.o
 
 # Flags used for compiling
 # -Wall shows every alert

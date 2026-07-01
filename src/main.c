@@ -61,36 +61,39 @@ int main()
             // Resolver sistemas lineares
             case 1:
             {
-                int linhas;
-                int colunas;
+
                 int linhas, colunas;
                 double matriz_coeficientes[MAX_ROWS][MAX_COLS];
                 double termos_constantes[MAX_ROWS];
-                double saida[MAX_COLS]; // onde vai ficar salvo x, y e z
+                double saida[MAX_COLS];
 
-                printf("Defina quantas linhas tem o sistema linear (x, y, z , etc . . .)\n> ");
+                printf("Digite o numero de linhas (equacoes): ");
                 scanf("%d", &linhas);
-
-                printf("Defina quantas variáveis tem o sistema linear (x, y, z , etc . . .)\n> ");
+                printf("Digite o numero de colunas (incognitas): ");
                 scanf("%d", &colunas);
-                
-                double coeficientes[linhas][colunas];
 
-                for (int i = 0; i < linhas; i++)
+                if (linhas < 1 || linhas > MAX_ROWS || colunas < 1 || colunas > MAX_COLS) 
                 {
-                    for (int j = 0; j < colunas + 2; j++)
+                    printf("Dimensoes invalidas. Maximo e 3x3.\n");
+                    return 1;
+                }
+
+                printf("Digite os coeficientes da matriz (%dx%d):\n", linhas, colunas);
+                for (int i = 0; i < linhas; i++) 
+                {
+                    for (int j = 0; j < colunas; j++) 
                     {
-                        scanf("%s", &sistema[i][j]);
+                        printf("matriz_coeficientes[%d][%d] = ", i, j);
+                        scanf("%lf", &matriz_coeficientes[i][j]);
                     }
                 }
-                chamar a função escal
-                
 
-                // Melhor pedir pelos coeficientes, vamos perguntar pro professor hj em relação a isso
-                // printf("Defina o sistema linear (Ex: 2x-y+12z , etc . . .)\n");
-                // printf("Coloque os sinais e não use espaço!\n");
-                
-
+                printf("Digite os termos constantes:\n");
+                for (int i = 0; i < linhas; i++) 
+                {
+                    printf("termos_constantes[%d] = ", i);
+                    scanf("%lf", &termos_constantes[i]);
+                }
                 
 
                 tui = false;
