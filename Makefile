@@ -1,65 +1,82 @@
-# To switch compilators, just retype this part
+# Verificação do sistema operacional
+ifeq ($(OS),Windows_NT)
+    # Comandos para Windows
+    RM = del /Q /F
+    # Converte barras normais para invertidas apenas se o comando 'del' exigir
+	# Exigência do windows
+    FIX_PATH = $(subst /,\\,$1)
+    EXEC_EXT = .exe
+else
+    # Comandos para Linux/Sistemas UNIX em geral
+    RM = rm -f
+    FIX_PATH = $1
+    EXEC_EXT =
+endif
+
+# Para rodar no windows utilize mingw32-make
+# Para rodar o clean no windows utilize mingw32-make clean
+# Para troca de compilador, utilize essa variável
 CC=gcc
 
-# Everything that needs compiling
-# Just alter here for any new functions (or older)
-# For playground, just put playground at the end here:
+# Tudo que necessita de compilação se encontra nessa variável
+# Apenas altere aqui caso queira adicionar ou retirar alguma função
+# Para trocar para o arquivo de testes, troque a main.o pelo playground.o
 OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/main.o
 
-# Flags used for compiling
-# -Wall shows every alert
-# -I searches for headers
+# Todas as flags para compilação
+# -Wall mostra todos os alertas
+# -I procura pelos headers na pasta include
 CFLAGS=-Wall -Iinclude
 
-# Final binary
-# bin/Playground for testing isolated functions
-# bin/LinearAlgebra for testing everything together
-TARGET=bin/LinearAlgebra
+# Binário final
+# Use bin/Playground para testar funções isoladas
+# Use bin/LinearAlgebra para testar tudo junto
+TARGET=bin/LinearAlgebra$(EXEC_EXT)
 
 all: $(TARGET)
 
-# Binary
+# Criação do binário final
 $(TARGET): $(OBJS)
 	@echo "Unifying all files"
 	@$(CC) $(OBJS) -o $(TARGET) -lm
 
-# The flag "-c" compiles the file as a part of the main (object file) not linking it directly
-# To link all the files, just type the binaries before the flag
-# To compile everything together use "-o" with the binaries linked before
+# A flag "-c" compila o arquivo como object, esse deve ser linkado manualmente com a main para funcionar perfeitamente
+# Para linkar todos os arquivos é necessário apenas escrever o arquivo C antes das flags
+# Para escolher o local e nome dos arquivos objetos, usamos "-o"
 
-# For any new function, just copy this pattern:
+# Para qualquer função nova, use esse padrão:
 #	build/function.o: src/modules/function.c
 #		@echo "Compiling main"
 #		@$(CC) src/modules/function.c -c -o build/function.o
 
 build/main.o: src/main.c
-	@echo "Compiling main"
+	@echo "Compilando a main"
 	@$(CC) $(CFLAGS) src/main.c -c -o build/main.o
 
 build/playground.o: src/playground.c
-	@echo "Compiling playground for testing"
+	@echo "Compilando o playground para testes"
 	@$(CC) $(CFLAGS) src/playground.c -c -o build/playground.o
 
 build/det.o: src/modules/det.c
-	@echo "Compiling determinant function"
+	@echo "Compilando a função do determinante"
 	@$(CC) $(CFLAGS) src/modules/det.c -c -o build/det.o
 
 build/autov.o: src/modules/autov.c
-	@echo "Compiling Eigenvalue and Eigenvector function"
+	@echo "Compilando funções de autovalor e autovetor"
 	@$(CC) $(CFLAGS) -lm src/modules/autov.c -c -o build/autov.o
 
 build/escal.o: src/modules/escal.c
-	@echo "Compiling escal function"
+	@echo "Compilando função de escalonamento"
 	@$(CC) $(CFLAGS) src/modules/escal.c -c -o build/escal.o
 
 build/scanm.o: src/modules/scanm.c
-	@echo "Compiling scan matrices function"
+	@echo "Compilando função para leitura de matrizes"
 	@$(CC) $(CFLAGS) src/modules/scanm.c -c -o build/scanm.o
 
 build/printm.o: src/modules/printm.c
-	@echo "Compiling print matrices function"
+	@echo "Compilando função para printar matrizes"
 	@$(CC) $(CFLAGS) src/modules/printm.c -c -o build/printm.o
 
 clean:
-	@echo "Removing executable files"
-	@rm $(OBJS) $(TARGET)
+	@echo "Removendo todos os arquivos executáveis"
+	@$(RM) $(call FIX_PATH,$(OBJS)) $(call FIX_PATH,$(TARGET))
