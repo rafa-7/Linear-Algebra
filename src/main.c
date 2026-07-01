@@ -84,7 +84,9 @@ int main()
                 int linhas;
                 int num_vars = 0;
                 char variaveis[MAX_COLS] = {0}; // Guarda a ordem encontrada (ex: ['x', 'y'])
+                double saida[MAX_COLS] = {0}; // Vetor que receberá as respostas do sistema
                 
+                // Armazena o resultado nessa variável
                 double matriz_coeficientes[MAX_ROWS][MAX_COLS] = {
                     {0}
                 };
@@ -111,8 +113,31 @@ int main()
                     scansys(equacao_str, matriz_coeficientes[i], variaveis, &num_vars, &termos_constantes[i]);
                 }
 
-                // Próximo passo: Chame aqui sua função de escalonamento/resolução...
-                // escalonar(linhas, num_vars, matriz_coeficientes, termos_constantes);
+                int classificacao = escal(matriz_coeficientes, termos_constantes, linhas, num_vars, saida);
+
+                if (classificacao == 1) 
+                {
+                    printf("Sistema Possivel e Determinado (SPD)\n");
+                    printf("Solucao unica encontrada:\n");
+                    
+                    // Mapeia o resultado numérico de volta para a letra digitada pelo usuário
+                    for (int j = 0; j < num_vars; j++) 
+                    {
+                        printf("%c = %.4f\n", variaveis[j], saida[j]);
+                    }
+                    printf("\n");
+                } 
+                else if (classificacao == 0) 
+                {
+                    printf(">>> Sistema Possivel e Indeterminado (SPI) <<<\n");
+                    printf("O sistema possui infinitas solucoes (Variaveis livres detectadas).\n\n");
+                } 
+                else if (classificacao == -1) 
+                {
+                    printf(">>> Sistema Impossivel (SI) <<<\n");
+                    printf("O sistema nao possui solucao (Equacoes contraditorias).\n\n");
+                }
+
 
                 tui = false;
                 break;
@@ -227,7 +252,7 @@ int main()
             }
         }
 
-        printf("Deseja armazenar o resultado?\n> ");
+        printf("Deseja armazenar o resultado? (y/n)\n> ");
         scanf(" %c", &armazenar);
 
         printf("Deseja voltar ao menu inicial? (y/n)\n> ");

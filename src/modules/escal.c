@@ -1,20 +1,19 @@
 #include <stdio.h>
 #include <math.h>
 
-#define MAX_ROWS 3 // define o tamanho máximo que podera ser aceito nos sistemas
-#define MAX_COLS 3 // define o tamanho máximo que podera ser aceito nos sistemas
+#define MAX_ROWS 3
+#define MAX_COLS 3
 
-
-// ? Resolve um sistema linear de até 3x3 usando o método do escalonamento
-// ? (Eliminação de Gauss).
-
-// ? Retorno:
-// ? 1 se encontrou solução única
-// ? 0 se o sistema não tem solução única (indeterminado ou impossivel)
-
+// Retorna: 
+//  1 para Sistema Possível e Determinado (Solução Única)
+//  0 para Sistema Possível e Indeterminado (Infinitas Soluções)
+// -1 para Sistema Impossível (Nenhuma Solução)
 int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constantes[MAX_ROWS], int linhas, int colunas, double saida[MAX_COLS]) {
-    double aug[MAX_ROWS][MAX_COLS + 1]; // Matriz que receberá os valores da matriz original para poder ser feitas alterações, sem prejudicar a principal.
+    double aug[MAX_ROWS][MAX_COLS + 1];
     int i, j, k;
+
+    // Inicializa o vetor de saída com zero
+    for (j = 0; j < colunas; j++) saida[j] = 0.0;
 
     // Monta a matriz aumentada
     for (i = 0; i < linhas; i++) {
@@ -25,12 +24,13 @@ int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constant
     }
 
     int linha_pivo_atual = 0;
-    int posto = 0;
+    // Guardará em qual coluna está o pivô de cada linha (-1 se não houver)
+    int coluna_pivo_por_linha[MAX_ROWS]; 
+    for (i = 0; i < linhas; i++) coluna_pivo_por_linha[i] = -1;
 
     // Varre coluna por coluna
     for (k = 0; k < colunas && linha_pivo_atual < linhas; k++) {
 
-        // Encontra o maior elemento na coluna k, a partir da linha_pivo_atual para baixo
         int linhaPivo = linha_pivo_atual;
         double maiorValor = fabs(aug[linha_pivo_atual][k]);
         for (i = linha_pivo_atual + 1; i < linhas; i++) {
@@ -40,12 +40,10 @@ int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constant
             }
         }
 
-        // Se o maior valor nesta coluna for zero, pulamos para a próxima coluna (Variável livre)
         if (maiorValor < 1e-12) {
-            continue; 
+            continue; // Coluna sem pivô (variável livre)
         }
 
-        // Troca as linhas, se necessário
         if (linhaPivo != linha_pivo_atual) {
             for (j = 0; j <= colunas; j++) {
                 double tmp = aug[linha_pivo_atual][j];
@@ -54,7 +52,7 @@ int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constant
             }
         }
 
-        // Zera os elementos abaixo do pivô na coluna k
+        // Zera os elementos abaixo do pivô
         for (i = linha_pivo_atual + 1; i < linhas; i++) {
             double fator = aug[i][k] / aug[linha_pivo_atual][k];
             for (j = k; j <= colunas; j++) {
@@ -62,20 +60,43 @@ int escal(double matriz_coeficientes[MAX_ROWS][MAX_COLS], double termos_constant
             }
         }
 
-        posto++;
-        linha_pivo_atual++; // Avança para a próxima linha para buscar o próximo pivô
+        coluna_pivo_por_linha[linha_pivo_atual] = k; // Registra a coluna do pivô
+        linha_pivo_atual++;
     }
 
-    // ---- Substituição reversa (Só faz sentido se houver solução única) ----
-    if (posto == colunas && posto == linhas) {
-        for (i = linhas - 1; i >= 0; i--) {
-            double soma = aug[i][colunas];
-            for (j = i + 1; j < colunas; j++) {
-                soma -= aug[i][j] * saida[j];
+    int posto = linha_pivo_atual;
+
+    // ---- Verificação de Sistema Impossível ----
+    // Se houver qualquer linha onde todos os coeficientes são zero mas o termo independente NÃO é zero
+    for (i = 0; i < linhas; i++) {
+        bool linha_toda_zero = true;
+        for (j = 0; j < colunas; j++) {
+            if (fabs(aug[i][j]) > 1e-12) {
+                linha_toda_zero = false;
+                break;
             }
-            saida[i] = soma / aug[i][i];
+        }
+        if (linha_toda_zero && fabs(aug[i][colunas]) > 1e-12) {
+            return -1; // Sistema Impossível (SI)
         }
     }
 
-    return posto; // Retorna o posto calculado para o main tomar as decisões
+    // ---- Verificação de Sistema Indeterminado ----
+    if (posto < colunas) {
+        return 0; // Sistema Possível e Indeterminado (SPI)
+    }
+
+    // ---- Substituição Reversa Corrigida (Apenas para SPD) ----
+    for (i = posto - 1; i >= 0; i--) {
+        int col_pivo = coluna_pivo_por_linha[i];
+        if (col_pivo == -1) continue;
+
+        double soma = aug[i][colunas];
+        for (j = col_pivo + 1; j < colunas; j++) {
+            soma -= aug[i][j] * saida[j];
+        }
+        saida[col_pivo] = soma / aug[i][col_pivo];
+    }
+
+    return 1; // Sistema Possível e Determinado (SPD)
 }
