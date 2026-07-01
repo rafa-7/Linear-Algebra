@@ -153,6 +153,88 @@ int main()
             // Determinar bases
             case determinarBases:
             {
+                int dimensao, num_vetores;
+
+                printf("Qual a dimensao do espaco? (2 para R^2, 3 para R^3):\n> ");
+                scanf("%d", &dimensao);
+
+                if (dimensao < 1 || dimensao > MAX_ROWS) 
+                {
+                    printf("Dimensao nao suportada. O maximo e %d.\n\n", MAX_ROWS);
+                    break;
+                }
+
+                printf("Quantos vetores tem o conjunto?\n> ");
+                scanf("%d", &num_vetores);
+
+                // Matriz onde cada linha representa um vetor inserido pelo usuário
+                double matriz_base[MAX_ROWS][MAX_COLS] = {
+                    {0}
+                };
+
+                printf("\nDigite os componentes de cada vetor:\n");
+                for (int i = 0; i < num_vetores; i++) 
+                {
+                    printf("Vetor V%d:\n", i + 1);
+                    for (int j = 0; j < dimensao; j++) 
+                    {
+                        printf("  Componente %d: ", j + 1);
+                        scanf("%lf", &matriz_base[i][j]);
+                    }
+                }
+
+                if (num_vetores == dimensao) 
+                {
+                    double determinante_base = det(dimensao, matriz_base);
+
+                    // Se o determinante for diferente de zero, os vetores sao LI e geram o espaco
+                    if (fabs(determinante_base) > 1e-12) 
+                    {
+                        printf("\n>>> RESULTADO: O CONJUNTO E UMA BASE! <<<\n");
+                        printf("Motivo: O numero de vetores e igual a dimensao (%d) e eles sao\n", dimensao);
+                        printf("Linearmente Independentes, pois o Determinante da matriz vira %.2lf.\n\n", determinante_base);
+                    } 
+                    // Se o determinante for zero, eles sao LD (nao formam base)
+                    else 
+                    {
+                        printf("\n>>> RESULTADO: NAO E UMA BASE! <<<\n");
+                        printf("Motivo: Os vetores sao Linearmente Dependentes (Determinante = 0).\n");
+                        printf("Existe redundancia linear entre os vetores digitados.\n\n");
+                        
+                        // EXTRA: Rodamos o escalonamento para achar o subconjunto LI
+                        printf("--- Analise Extra (Subconjunto LI) ---\n");
+                        double constantes[MAX_ROWS] = {0};
+                        double saida[MAX_COLS] = {0};
+                        
+                        // O escalonamento vai zerar as linhas redundantes (LD)
+                        int posto = escal(matriz_base, constantes, num_vetores, dimensao, saida);
+                        printf("A dimensao do subconjunto LI maximo e %d (Posto da matriz).\n", posto);
+                        printf("A matriz escalonada gerada foi:\n");
+                        for (int i = 0; i < num_vetores; i++) 
+                        {
+                            printf("  [ ");
+                            for (int j = 0; j < dimensao; j++) 
+                            {
+                                printf("%6.2f ", matriz_base[i][j]);
+                            }
+                            printf("]\n");
+                        }
+                        printf("Dica para completar: Adicione vetores canonicos nas direcoes das linhas nulas.\n\n");
+                    }
+                } 
+                else 
+                {
+                    printf("\n>>> RESULTADO: NAO E UMA BASE! <<<\n");
+                    printf("Motivo Estrito: A quantidade de vetores (%d) e diferente da dimensao do espaco (%d).\n", num_vetores, dimensao);
+                    
+                    if (num_vetores > dimensao) {
+                        printf("O conjunto e Linearmente Dependente (LD) por excesso de vetores.\n");
+                        printf("Para extrair uma base, voce precisa remover os vetores redundantes via escalonamento.\n\n");
+                    } else {
+                        printf("O conjunto e insuficiente para gerar o espaco tridimensional (Faltam vetores).\n");
+                        printf("Para transformar em base, voce precisa completar o conjunto adicionando mais %d vetor(es) LI.\n\n", dimensao - num_vetores);
+                    }
+                }
                 tui = false;
                 break;
             }
@@ -173,7 +255,8 @@ int main()
                 scanf("%d", &modo_leitura);
                 getchar(); // Limpa o buffer de quebra de linha
 
-                if (modo_leitura == 1) {
+                if (modo_leitura == 1) 
+                {
                     char expressao[100];
                     printf("\nDigite o operador (Aceita fracoes como 5/2 e espacos):\n> ");
                     fgets(expressao, sizeof(expressao), stdin);
@@ -181,10 +264,12 @@ int main()
                     // Filtra os valores da string e preenche matrizAtv
                     analisar_operador(expressao, matrizAtv);
                 } 
-                else {
+                else 
+                {
                     printf("Digite a ordem da matriz quadrada (nxn)\n> ");
                     scanf("%d", &ordem);
-                    if (ordem < 1 || ordem > 2) {
+                    if (ordem < 1 || ordem > 2) 
+                    {
                         printf("Ordem invalida.\n\n");
                         break;
                     }
@@ -200,9 +285,12 @@ int main()
                 // Executa os cálculos que criamos anteriormente
                 autova(ordem, matrizAtv, &autovae);
 
-                if (autovae.possuiRaiz == false) {
+                if (autovae.possuiRaiz == false) 
+                {
                     printf("\nNao existem autovalores reais para este operador (Raizes Complexas).\n\n");
-                } else {
+                } 
+                else 
+                {
                     printf("\nOs autovalores encontrados sao:\n");
                     printf("A1 = %.2lf\n", autovae.delta1);
                     printf("A2 = %.2lf\n\n", autovae.delta2);
@@ -269,7 +357,7 @@ int main()
 
         if (armazenar = 'y')
         {
-
+            
         }
         else
         {
