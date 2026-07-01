@@ -94,13 +94,15 @@ int main()
                 scanf("%d", &linhas);
                 getchar(); // Limpa o '\n' deixado pelo scanf para não quebrar o fgets
 
-                if (linhas < 1 || linhas > MAX_ROWS) {
+                if (linhas < 1 || linhas > MAX_ROWS) 
+                {
                     printf("Quantidade de linhas invalida.\n");
                     break;
                 }
 
-                printf("Digite as equacoes (Ex: x+2y=4):\n");
-                for (int i = 0; i < linhas; i++) {
+                printf("Digite as equacoes (Ex: 4x + y = 2):\n");
+                for (int i = 0; i < linhas; i++) 
+                {
                     char equacao_str[100];
                     printf("Equacao %d: ", i + 1);
                     fgets(equacao_str, sizeof(equacao_str), stdin);
@@ -108,26 +110,6 @@ int main()
                     // Extrai os coeficientes diretamente da string digitada
                     scansys(equacao_str, matriz_coeficientes[i], variaveis, &num_vars, &termos_constantes[i]);
                 }
-
-                // Exibe os dados convertidos em formato de Matriz para conferência
-                printf("\n--- Matriz Aumentada Gerada ---\n");
-                printf("Ordem das colunas identificadas: ");
-                for(int j = 0; j < num_vars; j++) 
-                {
-                    printf("  %c   ", variaveis[j]);
-                }
-
-                printf(" |  =\n");
-
-                for (int i = 0; i < linhas; i++) 
-                {
-                    for (int j = 0; j < num_vars; j++) 
-                    {
-                        printf("%6.2f ", matriz_coeficientes[i][j]);
-                    }
-                    printf("| %6.2f\n", termos_constantes[i]);
-                }
-                printf("-------------------------------\n\n");
 
                 // Próximo passo: Chame aqui sua função de escalonamento/resolução...
                 // escalonar(linhas, num_vars, matriz_coeficientes, termos_constantes);
