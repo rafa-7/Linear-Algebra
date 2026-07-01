@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
 
 #define MAX_ROWS 3
 #define MAX_COLS 3

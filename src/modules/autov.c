@@ -3,18 +3,17 @@
 #include "../../include/escal.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // Objetivo:
 // Calcular autovalores e autovetores
 // Apenas para matrizes 2x2
 
 // O static garante que a função somente existirá dentro desse arquivo C e não irá para a main
-// Definir como static
 static raizes bhaskara(double a, double b, double c)
 {
     double delta = (b * b) - (4 * a * c);
     raizes deltas;
-
 
     if (delta < 0)
     {
@@ -25,12 +24,12 @@ static raizes bhaskara(double a, double b, double c)
     }
     else
     {
+        deltas.possuiRaiz = true; // Garante que a struct saiba que existem raízes reais
         deltas.delta1 = (-b + sqrt(delta)) / (2 * a);
         deltas.delta2 = (-b - sqrt(delta)) / (2 * a);
         return deltas;
     }
 }
-
 
 // Receber uma matriz de ordem no máximo 2x2
 // Retornar autovetores e autovalores
@@ -43,24 +42,28 @@ void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores)
         double traco = matriz[0][0] + matriz[1][1];
         double detMatriz = det(2, matriz);
         eq = bhaskara(1, -traco, detMatriz);
+        
+        // CORREÇÃO: Repassa o booleano para a struct da Main não ler lixo de memória
+        autovalores->possuiRaiz = eq.possuiRaiz; 
         autovalores->delta1 = eq.delta1;
         autovalores->delta2 = eq.delta2;   
     }
     else if (ordem == 1)
     {  
+        autovalores->possuiRaiz = true; // CORREÇÃO: Define como true para ordem 1 também
         autovalores->delta1 = matriz[0][0];
         return;
     }
     else
     {
+        autovalores->possuiRaiz = false;
         return;
     }
 }
 
-// 
+// Calcula e exibe os autovetores associados
 void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
 {
-    // Corrigido: condição de saída sem dupla negação confusa
     if (ordem == 1 || valores->possuiRaiz == false) return;
 
     // ========================================================
@@ -83,13 +86,10 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
 
     printf("-> Para o autovalor A1 = %.2lf:\n", valores->delta1);
     if (classif1 == 0) { 
-        // Se a primeira linha for algo como [a, b], então ax + by = 0 -> x = (-b/a)y
-        // Arbitrando y = 1.0, temos x = -b/a
         if (fabs(mat_aux1[0][0]) > 1e-12) {
             double x = -mat_aux1[0][1] / mat_aux1[0][0];
             printf("   Um autovetor associado e: v1 = (%.2lf, 1.00)\n\n", x);
         } else {
-            // Se 'a' for zero, significa que by = 0 -> y = 0, e x é livre (x = 1)
             printf("   Um autovetor associado e: v1 = (1.00, 0.00)\n\n");
         }
     }
@@ -104,7 +104,6 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
         }
     }
     
-    // Corrigido: Subtraindo o delta2 corretamente
     mat_aux2[0][0] -= valores->delta2;
     mat_aux2[1][1] -= valores->delta2;
 
@@ -113,7 +112,6 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
 
     int classif2 = escal(mat_aux2, constantes2, 2, 2, solucao2);
 
-    // Corrigido: Printando as informações referentes ao A2
     printf("-> Para o autovalor A2 = %.2lf:\n", valores->delta2);
     if (classif2 == 0) { 
         if (fabs(mat_aux2[0][0]) > 1e-12) {

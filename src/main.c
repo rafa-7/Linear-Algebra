@@ -352,18 +352,6 @@ int main()
             }
         }
 
-        printf("Deseja armazenar o resultado? (y/n)\n> ");
-        scanf(" %c", &armazenar);
-
-        if (armazenar = 'y')
-        {
-            
-        }
-        else
-        {
-            continue;
-        }
-
         printf("Deseja voltar ao menu inicial? (y/n)\n> ");
         scanf(" %c", &continuar);
 

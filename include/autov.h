@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 // Maneira de retornar dois valores na função
 typedef struct
