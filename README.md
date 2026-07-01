@@ -2,106 +2,84 @@
     <img src="docs/images/IFG-2015-Completa.jpg" height="250" width="auto">
 </div>
 
-# Linear Algebra 
-
-<!-- Para o(s) professor(es):
-Tentei fazer tudo em inglês para praticar e deixar o repositório mais "público"
-Para instruções ou prints na main, utilizarei somente português -->
+# Álgebra Linear
 
 ```ASCII art
-.____    .__                                      
-|    |   |__| ____   ____ _____ _______           
-|    |   |  |/    \_/ __ \\__  \\_  __ \          
-|    |___|  |   |  \  ___/ / __ \|  | \/          
-|_______ \__|___|  /\___  >____  /__|             
-        \/       \/     \/     \/                 
-   _____  .__                ___.                 
-  /  _  \ |  |    ____   ____\_ |______________   
- /  /_\  \|  |   / ___\_/ __ \| __ \_  __ \__  \  
-/    |    \  |__/ /_/  >  ___/| \_\ \  | \// __ \_
-\____|__  /____/\___  / \___  >___  /__|  (____  /
-        \/     /_____/      \/    \/           \/ 
+   ___   __         __           
+  / _ | / /__ ____ / /  _______ _
+ / __ |/ / _ `/ -_) _ \/ __/ _ `/
+/_/ |_/_/\_, /\__/_.__/_/  \_,_/ 
+   __   /___/                    
+  / /  (_)__  ___ ___ _____      
+ / /__/ / _ \/ -_) _ `/ __/      
+/____/_/_//_/\__/\_,_/_/         
+                                 
 ```
+## Geral
 
-## General
+- Este repositório é voltado para um trabalho acadêmico.
+- Como o prazo de entrega é até **01/07/2026**, provavelmente não estarei mais mexendo aqui após essa data.
 
-- This repository aims for a college work
+### A nota será avaliada da seguinte forma (10.0 no total):
 
-<!-- Padrão americano de data -->
-<!-- 24/06/2026  -->
-- Since it is due to **06/24/2026**, i'm probably not working here anymore after that 
+- Organização, estrutura do código e funcionamento geral. **(2.0)**
+- Uso de funções e princípios de modularização. **(2.0)**
+- Uso das estruturas de dados estudadas. **(2.0)**
+- Uso de manipulação de arquivos e registros. **(2.0)**
+- Atendimento aos requisitos do cliente (álgebra linear), conforme os objetivos. **(2.0)**
 
-### The grade is being rated like this (10.0 at total)
+## Objetivos
 
-- Organization, code structure, and general operation. **(2.0)**
+### No escopo de Álgebra Linear, os principais objetivos são:
 
-- Use of modularization functions and principles **(2.0)**
+- Resolução de Sistemas Lineares
+- Verificação de injetividade, sobrejetividade e bijetividade.
+- Determinação de Bases
+- Cálculo de Autovalores e Autovetores
+- Diagonalização de Matrizes
 
-- Use of the data structures seen **(2.0)**
+## Tarefas
 
-- Use of file and record manipulation **(2.0)**
+- [x] Finalizar `diag.c`
+- [ ] Finalizar adaptação do código na main
+- [ ] Finalizar programa
 
-- Meeting customer requirements (linear algebra), this follows to objectives **(2.0)**
-
-## Objectives
-
-### As in Linear Algebra, the main objectives are
-
-- Solving Linear Systems
-
-- Checking for injectivity, surjectivity, and bijectivity.
-
-- Determination of Bases
-
-- Eigenvalue and Eigenvector Calculation
-
-- Matrix Diagonalization
-
-## Tasks
-
-- [x] GUI or TUI initials 
-
-- [ ] Structure in main.c for GUI
-
-- [ ] Use type raizes as a parameter for autove function
-
-- [ ] Finish autov.c
-
-- [ ] Finish escal.c
-
-## Compiling and running
+## Compilação e Execução
 
 ### Make
 
-- In this project, we are using a [Makefile](Makefile), by all means the compiling will be an easy process
-
-- Run `make` to compile everything into the bin folder
+- Neste projeto, estamos utilizando um [Makefile](https://www.google.com/search?q=Makefile). Sendo assim, o processo de compilação será bem simples.
+- Execute `make` para compilar tudo dentro da pasta `bin`:
 
 ```Makefile
 make
+
 ```
 
-- After that, run the binary by using:
+- Depois disso, execute o binário utilizando:
 
 ```Running
 bin/./LinearAlgebra
+
 ```
-- After testing all you want, run this command to remove all binaries and object files
+
+- Após fazer todos os testes que desejar, execute este comando para remover todos os binários e arquivos de objeto:
 
 ```Makefile clean
 make clean
-```
-## Structure
-
-```Structure
-├── bin             -> Final binary
-├── build           -> Intermediary binaries
-├── docs            -> All documentation
-│   └── images      -> Images used
-├── include         -> Headers
-└── src             -> Main
-    └── modules     -> Functions
 
 ```
 
-by [Rafael](https://github.com/rafa-7) and [Yuri](https://github.com/YURI-gomes062)
+## Estrutura
+
+```Estrutura
+├── bin             -> Binário final
+├── build           -> Binários intermediários (objetos)
+├── docs            -> Toda a documentação
+│   └── images      -> Imagens utilizadas
+├── include         -> Headers (.h)
+└── src             -> Código principal
+    └── modules     -> Funções usadas
+
+```
+por [Rafael](https://github.com/rafa-7) e [Yuri](https://github.com/YURI-gomes062)

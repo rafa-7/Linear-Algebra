@@ -27,6 +27,7 @@ int main()
     {
         int escolha;
         char continuar;
+        char armazenar;
 
         
 
@@ -46,28 +47,43 @@ int main()
         "\n");
     
         // Apesar de muito pouco, declarar um printf assim economiza processamento
-        printf("O que deseja fazer?\n"    
-               "(1) Resolver sistemas lineares\n"
-               "(2) Dimensão do núcleo, Dimensão da imagem, Verificar Injetividade, Sobrejetividade e Bijetividade\n"
-               "(3) Determinar bases\n"
-               "(4) Calcular autovalores e/ou autovetores\n"
-               "(5) Diagonalização de matrizes\n"
-               "(6) Calcular determinantes\n"
-               "(0) Finalizar programa\n"
-               "\n> ");
 
+ // Apesar de muito pouco, declarar um printf assim economiza processamento
+
+        printf("O que deseja fazer?\n"
+        "(1) Resolver sistemas lineares\n"
+        "(2) Dimensão do núcleo, Dimensão da imagem, Verificar Injetividade, Sobrejetividade e Bijetividade\n"
+        "(3) Determinar bases\n"
+        "(4) Calcular autovalores e/ou autovetores\n"
+        "(5) Diagonalização de matrizes\n"
+        "(6) Calcular determinantes\n"
+        "(0) Finalizar programa\n"
+        "\n> ");
+        
         scanf("%d", &escolha);
 
-        switch (escolha)
+        typedef enum {
+            fim = 0,
+            resolverSistemas,
+            verificarProp, // Núcleo, imagem, injetividade...
+            determinarBases,
+            calcAutov,
+            diagonalizacao,
+            determinante
+        } Menu;
+        
+        Menu opcao = (Menu) escolha; // Converte o int para o tipo do Enum
+
+        switch (opcao)
         {
             // Resolver sistemas lineares
-            case 1:
+            case resolverSistemas:
             {
 
                 int linhas, colunas;
                 double matriz_coeficientes[MAX_ROWS][MAX_COLS];
                 double termos_constantes[MAX_ROWS];
-                double saida[MAX_COLS];
+                // double saida[MAX_COLS];
 
                 printf("Digite o numero de linhas (equacoes): ");
                 scanf("%d", &linhas);
@@ -103,21 +119,21 @@ int main()
             }
              
             // Verificar Injetividade, Sobrejetividade e Bijetividade
-            case 2:
+            case verificarProp:
             {
                 tui = false;
                 break;
             }
             
             // Determinar bases
-            case 3:
+            case determinarBases:
             {
                 tui = false;
                 break;
             }
             
             // Calcular autovalores e/ou autovetores
-            case 4:
+            case calcAutov:
             {
                 int ordem;
 
@@ -163,14 +179,14 @@ int main()
             }
             
             // Diagonalização de matrizes
-            case 5:
+            case diagonalizacao:
             {
                 tui = false;
                 break;
             }
 
             // Calcular determinantes
-            case 6:
+            case determinante:
             {
                 int ordem;
                 
@@ -210,6 +226,9 @@ int main()
                 break;
             }
         }
+
+        printf("Deseja armazenar o resultado?\n> ");
+        scanf(" %c", &armazenar);
 
         printf("Deseja voltar ao menu inicial? (y/n)\n> ");
         scanf(" %c", &continuar);

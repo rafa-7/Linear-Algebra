@@ -37,7 +37,7 @@ all: $(TARGET)
 
 # Criação do binário final
 $(TARGET): $(OBJS)
-	@echo "Unifying all files"
+	@echo "Unificando todos os arquivos"
 	@$(CC) $(OBJS) -o $(TARGET) -lm
 
 # A flag "-c" compila o arquivo como object, esse deve ser linkado manualmente com a main para funcionar perfeitamente
@@ -76,6 +76,10 @@ build/scanm.o: src/modules/scanm.c
 build/printm.o: src/modules/printm.c
 	@echo "Compilando função para printar matrizes"
 	@$(CC) $(CFLAGS) src/modules/printm.c -c -o build/printm.o
+
+build/classificar_funcao.o: src/modules/classificar_funcao.c
+	@echo "Compilando função para classificar funções"
+	@$(CC) $(CFLAGS) src/modules/classificar_funcao.c -c -o build/classificar_funcao.o
 
 clean:
 	@echo "Removendo todos os arquivos executáveis"
