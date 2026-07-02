@@ -28,7 +28,7 @@ int main()
     {
         int escolha;
         char continuar;
-        char armazenar;
+        
         char buffer_salvamento[2048] = {0}; 
         char temp[512] = {0}; // Buffer auxiliar para concatenações
 
