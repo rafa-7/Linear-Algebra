@@ -1,3 +1,4 @@
+// Não funciona !!!!!!!
 #include <stdio.h>
 
 void salvar_em_arquivo(const char *titulo, const char *conteudo) {

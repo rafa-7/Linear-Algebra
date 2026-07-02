@@ -44,14 +44,13 @@ void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores)
         double detMatriz = det(2, matriz);
         eq = bhaskara(1, -traco, detMatriz);
         
-        // CORREÇÃO: Repassa o booleano para a struct da Main não ler lixo de memória
         autovalores->possuiRaiz = eq.possuiRaiz; 
         autovalores->delta1 = eq.delta1;
         autovalores->delta2 = eq.delta2;   
     }
     else if (ordem == 1)
     {  
-        autovalores->possuiRaiz = true; // CORREÇÃO: Define como true para ordem 1 também
+        autovalores->possuiRaiz = true;
         autovalores->delta1 = matriz[0][0];
         return;
     }
@@ -62,11 +61,13 @@ void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores)
     }
 }
 
-// Calcula e exibe os autovetores associados
+// Calcula e exibe os autovetores assoiados
+// buffer_saida seria usado para o arquivo (delimitar o buffer)
 void autove(int ordem, double matriz[ordem][ordem], raizes *valores, char *buffer_saida)
 {
     if (ordem == 1 || valores->possuiRaiz == false) return;
 
+    // Essa parte seria para o arquivo
     char temp_local[512] = {0};
 
     // Cálculo do primeiro autovetor

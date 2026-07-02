@@ -8,7 +8,8 @@
 #define MAX_COLS 3
 
 // Função auxiliar para mapear a variável ('x' -> Coluna 0, 'y' -> Coluna 1)
-static int coluna_operador(char var) {
+static int coluna_operador(char var) 
+{
     if (var == 'x' || var == 'X') return 0;
     if (var == 'y' || var == 'Y') return 1;
     return -1; // Variável inválida para R²
@@ -74,6 +75,7 @@ void verificaPonto(char *str, double matriz[MAX_ROWS][MAX_COLS])
                 i++; // Pula a barra '/'
                 double denominador = strtod(&str[i], &fim_num);
                 i = fim_num - str;
+                
                 if (denominador != 0) 
                 {
                     valor /= denominador;
@@ -87,11 +89,15 @@ void verificaPonto(char *str, double matriz[MAX_ROWS][MAX_COLS])
             } 
 
             // Associa à coluna da letra encontrada
-            if (isalpha(str[i])) {
+            if (isalpha(str[i])) 
+            {
                 int col = coluna_operador(str[i]);
-                if (col != -1 && linha_atual < 2) {
+
+                if (col != -1 && linha_atual < 2) 
+                {
                     matriz[linha_atual][col] += sinal * valor;
                 }
+
                 i++;
             }
         }
@@ -99,10 +105,12 @@ void verificaPonto(char *str, double matriz[MAX_ROWS][MAX_COLS])
         else if (isalpha(str[i])) 
         {
             int col = coluna_operador(str[i]);
+
             if (col != -1 && linha_atual < 2) 
             {
                 matriz[linha_atual][col] += sinal * 1.0;
             }
+
             i++;
         } 
         else 
