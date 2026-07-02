@@ -9,9 +9,9 @@
 #include "../include/escal.h"
 #include "../include/diag.h"
 #include "../include/classificar_funcao.h"
+#include "../include/persis.h"
 #include "../include/scansys.h"
 #include "../include/parserAutov.h"
-
 int main()
 {
     bool tui = true;
@@ -29,6 +29,8 @@ int main()
         int escolha;
         char continuar;
         char armazenar;
+        char buffer_salvamento[2048] = {0}; 
+        char temp[512] = {0}; // Buffer auxiliar para concatenações
 
         
 
@@ -126,6 +128,8 @@ int main()
                     for (int j = 0; j < num_vars; j++) 
                     {
                         printf("%c = %.4f\n", variaveis[j], saida[j]);
+                        sprintf(temp, "%c = %.4f\n", variaveis[j], saida[j]);
+                        strcat(buffer_salvamento, temp);
                     }
                     printf("\n");
                 } 
@@ -133,11 +137,15 @@ int main()
                 {
                     printf("Sistema Possivel e Indeterminado (SPI)\n");
                     printf("O sistema possui infinitas solucoes (Variaveis livres detectadas).\n\n");
+                    sprintf(temp, "O sistema possui infinitas solucoes (Variaveis livres detectadas).");
+                    strcat(buffer_salvamento, temp);
                 } 
                 else if (classificacao == -1) 
                 {
                     printf("Sistema Impossivel (SI)\n");
                     printf("O sistema nao possui solucao (Equacoes contraditorias).\n\n");
+                    sprintf(temp, "O sistema nao possui solucao (Equacoes contraditorias).\n\n");
+                    strcat(buffer_salvamento, temp);
                 }
 
 
@@ -193,8 +201,11 @@ int main()
                 printf("\n--- Matriz Associada a Transformacao ---\n");
                 for (int i = 0; i < linhas; i++) {
                     printf("  [ ");
-                    for (int j = 0; j < colunas; j++) {
+                    for (int j = 0; j < colunas; j++) 
+                    {
                         printf("%6.2f ", matriz_prop[i][j]);
+                        sprintf(temp, "%6.2f ", matriz_prop[i][j]);
+                        strcat(buffer_salvamento, temp);
                     }
                     printf("]\n");
                 }
@@ -290,16 +301,22 @@ int main()
                 {
                     printf("\nNão é uma base!\n");
                     printf("Motivo Estrito: A quantidade de vetores (%d) e diferente da dimensao do espaco (%d).\n", num_vetores, dimensao);
+                    sprintf(temp, "Motivo Estrito: A quantidade de vetores (%d) e diferente da dimensao do espaco (%d).\n", num_vetores, dimensao);
+                    strcat(buffer_salvamento, temp);
                     
                     if (num_vetores > dimensao) 
                     {
                         printf("O conjunto e Linearmente Dependente (LD) por excesso de vetores.\n");
                         printf("Para extrair uma base, voce precisa remover os vetores redundantes via escalonamento.\n\n");
+                        sprintf(temp, "Para extrair uma base, voce precisa remover os vetores redundantes via escalonamento.\n\n");
+                        strcat(buffer_salvamento, temp);
                     } 
                     else 
                     {
                         printf("O conjunto e insuficiente para gerar o espaco tridimensional (Faltam vetores).\n");
                         printf("Para transformar em base, voce precisa completar o conjunto adicionando mais %d vetor(es) LI.\n\n", dimensao - num_vetores);
+                        sprintf(temp, "Para transformar em base, voce precisa completar o conjunto adicionando mais %d vetor(es) LI.\n\n", dimensao - num_vetores);
+                        strcat(buffer_salvamento, temp);
                     }
                 }
                 tui = false;
@@ -363,7 +380,7 @@ int main()
                     printf("A2 = %.2lf\n\n", autovae.delta2);
 
                     printf("Calculando os autovetores associados:\n");
-                    autove(ordem, matrizAtv, &autovae);
+                    autove(ordem, matrizAtv, &autovae, buffer_salvamento);
                 }
 
                 tui = false;
@@ -397,10 +414,19 @@ int main()
 
                 scanm(ordem, matrizDet);
                 printf("\nO determinante da matriz é: %.2lf\n\n", det(ordem, matrizDet));
+                sprintf(temp, "\nO determinante da matriz é: %.2lf\n\n", det(ordem, matrizDet));
+                strcat(buffer_salvamento, temp);
 
                 break;
 
 
+            }
+
+            case memoriaArq:
+            {
+                exibir_historico();
+                tui = false;
+                break;
             }
                 
             case 0:

@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 // Objetivo:
 // Calcular autovalores e autovetores
@@ -62,16 +63,18 @@ void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores)
 }
 
 // Calcula e exibe os autovetores associados
-void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
+void autove(int ordem, double matriz[ordem][ordem], raizes *valores, char *buffer_saida)
 {
     if (ordem == 1 || valores->possuiRaiz == false) return;
 
-    // ========================================================
-    // CÁLCULO DO AUTOVETOR PARA O PRIMEIRO AUTOVALOR (A1)
-    // ========================================================
+    char temp_local[512] = {0};
+
+    // Cálculo do primeiro autovetor
     double mat_aux1[MAX_ROWS][MAX_COLS] = {0};
-    for(int i=0; i<2; i++) {
-        for(int j=0; j<2; j++) {
+    for(int i = 0; i < 2; i++) 
+    {
+        for(int j = 0; j < 2; j++)
+        {
             mat_aux1[i][j] = matriz[i][j];
         }
     }
@@ -85,21 +88,27 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
     int classif1 = escal(mat_aux1, constantes1, 2, 2, solucao1);
 
     printf("-> Para o autovalor A1 = %.2lf:\n", valores->delta1);
-    if (classif1 == 0) { 
-        if (fabs(mat_aux1[0][0]) > 1e-12) {
+    if (classif1 == 0) 
+    { 
+        if (fabs(mat_aux1[0][0]) > 1e-12) 
+        {
             double x = -mat_aux1[0][1] / mat_aux1[0][0];
             printf("   Um autovetor associado e: v1 = (%.2lf, 1.00)\n\n", x);
-        } else {
+        } 
+        else 
+        {
             printf("   Um autovetor associado e: v1 = (1.00, 0.00)\n\n");
         }
     }
 
-    // ========================================================
-    // CÁLCULO DO AUTOVETOR PARA O SEGUNDO AUTOVALOR (A2)
-    // ========================================================
+
+    // Cálculo do segundo autovetor
     double mat_aux2[MAX_ROWS][MAX_COLS] = {0};
-    for(int i=0; i<2; i++) {
-        for(int j=0; j<2; j++) {
+
+    for(int i = 0; i < 2; i++) 
+    {
+        for(int j = 0; j <2; j++) 
+        {
             mat_aux2[i][j] = matriz[i][j];
         }
     }
@@ -113,12 +122,20 @@ void autove(int ordem, double matriz[ordem][ordem], raizes *valores)
     int classif2 = escal(mat_aux2, constantes2, 2, 2, solucao2);
 
     printf("-> Para o autovalor A2 = %.2lf:\n", valores->delta2);
-    if (classif2 == 0) { 
-        if (fabs(mat_aux2[0][0]) > 1e-12) {
+    if (classif2 == 0) 
+    { 
+        if (fabs(mat_aux2[0][0]) > 1e-12) 
+        {
             double x = -mat_aux2[0][1] / mat_aux2[0][0];
             printf("   Um autovetor associado e: v2 = (%.2lf, 1.00)\n\n", x);
-        } else {
+            sprintf(temp_local, "   Um autovetor associado e: v2 = (%.2lf, 1.00)\n\n", x);
+            strcat(buffer_saida, temp_local);
+        } 
+        else 
+        {
             printf("   Um autovetor associado e: v2 = (1.00, 0.00)\n\n");
+            sprintf(temp_local, "   Um autovetor associado e: v2 = (1.00, 0.00)\n\n");
+            strcat(buffer_saida, temp_local);
         }
     }
 }

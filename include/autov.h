@@ -11,4 +11,4 @@ typedef struct
 
 void autova(int ordem, double matriz[ordem][ordem], raizes *autovalores);
 
-void autove(int ordem, double matriz[ordem][ordem], raizes *valores);
+void autove(int ordem, double matriz[ordem][ordem], raizes *valores, char *buffer_saida); 
