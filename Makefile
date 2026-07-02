@@ -21,7 +21,7 @@ CC=gcc
 # Tudo que necessita de compilação se encontra nessa variável
 # Apenas altere aqui caso queira adicionar ou retirar alguma função
 # Para trocar para o arquivo de testes, troque a main.o pelo playground.o
-OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/parserAutov.o build/scansys.o build/main.o 
+OBJS=build/det.o build/autov.o build/scanm.o build/escal.o build/parserAutov.o build/scansys.o build/classificar_funcao.o build/main.o 
 
 # Todas as flags para compilação
 # -Wall mostra todos os alertas

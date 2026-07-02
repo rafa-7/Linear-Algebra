@@ -58,7 +58,7 @@ int main()
         "(4) Calcular autovalores e/ou autovetores\n"
         "(5) Diagonalização de matrizes\n"
         "(6) Calcular determinantes\n"
-        "(7) Mostrar resultados na memória"
+        "(7) Mostrar resultados na memória\n"
         "(0) Finalizar programa\n"
         "\n> ");
         
@@ -172,7 +172,7 @@ int main()
                     // Para o R^2 -> R^2 fixo da função anterior, linhas=2 e colunas=2.
                     linhas = 2; 
                     colunas = 2;
-                    analisar_operador(expressao, matriz_prop);
+                    verificaPonto(expressao, matriz_prop);
                 } 
                 else {
                     printf("Defina a dimensao do espaco de CHEGADA (m) [Numero de Linhas]:\n> ");
@@ -430,7 +430,13 @@ int main()
         {
             tui = false;
         }
-        
+
+        // Limpa a tela no final, o ponto é armazenar as respostas anteriores no arquivo
+        #ifdef _WIN32
+        system("cls");
+        #elif __linux__
+        system("clear");
+        #endif
     }
 }
 
