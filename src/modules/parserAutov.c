@@ -15,25 +15,33 @@ static int coluna_operador(char var) {
 }
 
 // Analisa o operador completo digitado, ex: "(2x+2y, -x+4y)"
-void analisar_operador(char *str, double matriz[MAX_ROWS][MAX_COLS]) {
+void verificaPonto(char *str, double matriz[MAX_ROWS][MAX_COLS]) 
+{
     int i = 0;
     int linha_atual = 0; // Começa na linha 0 (antes da vírgula)
     int sinal = 1;
 
     // Zera a matriz 2x2 receptora antes de começar
-    for(int r=0; r<2; r++) {
-        for(int c=0; c<2; c++) matriz[r][c] = 0.0;
+    for(int i = 0; i < 2; i++) 
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            matriz[i][j] = 0.0;
+        } 
     }
 
-    while (str[i] != '\0' && str[i] != '\n') {
+    while (str[i] != '\0' && str[i] != '\n') 
+    {
         // Ignora parênteses e espaços em branco
-        if (str[i] == '(' || str[i] == ')' || isspace(str[i])) { 
+        if (str[i] == '(' || str[i] == ')' || isspace(str[i])) 
+        { 
             i++; 
             continue; 
         }
 
         // Se encontrar uma vírgula, muda para a segunda componente (Linha 1)
-        if (str[i] == ',') {
+        if (str[i] == ',') 
+        {
             linha_atual = 1;
             sinal = 1; // Reseta o sinal padrão para positivo
             i++;
@@ -41,8 +49,18 @@ void analisar_operador(char *str, double matriz[MAX_ROWS][MAX_COLS]) {
         }
 
         // Captura de sinais
-        if (str[i] == '+') { sinal = 1; i++; continue; }
-        if (str[i] == '-') { sinal = -1; i++; continue; }
+        if (str[i] == '+') 
+        { 
+            sinal = 1; 
+            i++; 
+            continue; 
+        }
+        if (str[i] == '-') 
+        { 
+            sinal = -1; 
+            i++; 
+            continue; 
+        }
 
         // Se encontrar um número (coeficiente inteiro, decimal ou fração)
         if (isdigit(str[i]) || str[i] == '.') {
@@ -51,17 +69,22 @@ void analisar_operador(char *str, double matriz[MAX_ROWS][MAX_COLS]) {
             i = fim_num - str;
 
             // Tratamento de Fração (ex: 5/2)
-            if (str[i] == '/') {
+            if (str[i] == '/') 
+            {
                 i++; // Pula a barra '/'
                 double denominador = strtod(&str[i], &fim_num);
                 i = fim_num - str;
-                if (denominador != 0) {
+                if (denominador != 0) 
+                {
                     valor /= denominador;
                 }
             }
 
             // Pula eventuais espaços entre o número e a letra
-            while (isspace(str[i])) i++;
+            while (isspace(str[i]))
+            {
+                i++;
+            } 
 
             // Associa à coluna da letra encontrada
             if (isalpha(str[i])) {
@@ -73,13 +96,17 @@ void analisar_operador(char *str, double matriz[MAX_ROWS][MAX_COLS]) {
             }
         }
         // Se encontrar uma letra pura isolada (ex: "-y" ou "x")
-        else if (isalpha(str[i])) {
+        else if (isalpha(str[i])) 
+        {
             int col = coluna_operador(str[i]);
-            if (col != -1 && linha_atual < 2) {
+            if (col != -1 && linha_atual < 2) 
+            {
                 matriz[linha_atual][col] += sinal * 1.0;
             }
             i++;
-        } else {
+        } 
+        else 
+        {
             i++;
         }
     }

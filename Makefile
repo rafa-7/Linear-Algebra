@@ -30,8 +30,8 @@ CFLAGS=-Wall -Iinclude
 
 # Binário final
 # Use bin/Playground para testar funções isoladas
-# Use bin/LinearAlgebra para testar tudo junto
-TARGET=bin/LinearAlgebra$(EXEC_EXT)
+# Use bin/AlgebraLinear para testar tudo junto
+TARGET=bin/AlgebraLinear$(EXEC_EXT)
 
 all: $(TARGET)
 

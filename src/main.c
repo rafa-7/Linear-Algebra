@@ -58,6 +58,7 @@ int main()
         "(4) Calcular autovalores e/ou autovetores\n"
         "(5) Diagonalização de matrizes\n"
         "(6) Calcular determinantes\n"
+        "(7) Mostrar resultados na memória"
         "(0) Finalizar programa\n"
         "\n> ");
         
@@ -70,7 +71,8 @@ int main()
             determinarBases,
             calcAutov,
             diagonalizacao,
-            determinante
+            determinante,
+            memoriaArq
         } Menu;
         
         Menu opcao = (Menu) escolha; // Converte o int para o tipo do Enum
@@ -146,6 +148,68 @@ int main()
             // Verificar Injetividade, Sobrejetividade e Bijetividade
             case verificarProp:
             {
+                int linhas, colunas;
+                double matriz_prop[MAX_ROWS][MAX_COLS] = {
+                    {0}
+                };
+
+                int modo_leitura;
+
+                printf("Como deseja inserir a Transformacao Linear T:R^n -> R^m?\n");
+                printf("(1) Digitar a expressao completa - Ex: (3x - 2.5y, 0.5y)\n");
+                printf("(2) Digitar as dimensoes e os coeficientes manualmente\n> ");
+                scanf("%d", &modo_leitura);
+                getchar(); // Limpa o buffer do '\n'
+
+                if (modo_leitura == 1) {
+                    char expressao[100];
+                    printf("\nDigite o operador linear no formato (2x+y, x-y, 3z):\n> ");
+                    fgets(expressao, sizeof(expressao), stdin);
+
+                    // Reutiliza o seu parser que varre strings!
+                    // Nota: Para operadores genéricos, certifique-se de que o parser conte 
+                    // quantas linhas (vírgulas + 1) e colunas foram identificadas dinamicamente.
+                    // Para o R^2 -> R^2 fixo da função anterior, linhas=2 e colunas=2.
+                    linhas = 2; 
+                    colunas = 2;
+                    analisar_operador(expressao, matriz_prop);
+                } 
+                else {
+                    printf("Defina a dimensao do espaco de CHEGADA (m) [Numero de Linhas]:\n> ");
+                    scanf("%d", &linhas);
+                    printf("Defina a dimensao do espaco de PARTIDA (n) [Numero de Colunas]:\n> ");
+                    scanf("%d", &colunas);
+
+                    if (linhas < 1 || linhas > MAX_ROWS || colunas < 1 || colunas > MAX_COLS) {
+                        printf("Dimensoes invalidas. O limite maximo e %dx%d.\n\n", MAX_ROWS, MAX_COLS);
+                        break;
+                    }
+
+                    // Usa sua função padrão para ler a matriz
+                    scanm(linhas, matriz_prop); 
+                }
+
+                // Exibe a matriz gerada para conferência
+                printf("\n--- Matriz Associada a Transformacao ---\n");
+                for (int i = 0; i < linhas; i++) {
+                    printf("  [ ");
+                    for (int j = 0; j < colunas; j++) {
+                        printf("%6.2f ", matriz_prop[i][j]);
+                    }
+                    printf("]\n");
+                }
+                printf("----------------------------------------\n");
+
+                // Para rodar o escal(), precisamos simular vetores auxiliares de termos constantes e saída
+                double constantes_ficticias[MAX_ROWS] = {0};
+                double saida_ficticia[MAX_COLS] = {0};
+                
+                // O escalonamento vai triangular a matriz e retornar a quantidade de pivôs reais (O POSTO)
+                int posto_calculado = escal(matriz_prop, constantes_ficticias, linhas, colunas, saida_ficticia);
+
+                // --- CHAMADA DA SUA FUNÇÃO DE CLASSIFICAÇÃO ---
+                classificar_transformacao(posto_calculado, linhas, colunas);
+
                 tui = false;
                 break;
             }
@@ -190,19 +254,19 @@ int main()
                     // Se o determinante for diferente de zero, os vetores sao LI e geram o espaco
                     if (fabs(determinante_base) > 1e-12) 
                     {
-                        printf("\n>>> RESULTADO: O CONJUNTO E UMA BASE! <<<\n");
+                        printf("\nO conjunto é uma base!\n");
                         printf("Motivo: O numero de vetores e igual a dimensao (%d) e eles sao\n", dimensao);
                         printf("Linearmente Independentes, pois o Determinante da matriz vira %.2lf.\n\n", determinante_base);
                     } 
                     // Se o determinante for zero, eles sao LD (nao formam base)
                     else 
                     {
-                        printf("\n>>> RESULTADO: NAO E UMA BASE! <<<\n");
+                        printf("\nNão é uma base!\n");
                         printf("Motivo: Os vetores sao Linearmente Dependentes (Determinante = 0).\n");
                         printf("Existe redundancia linear entre os vetores digitados.\n\n");
                         
-                        // EXTRA: Rodamos o escalonamento para achar o subconjunto LI
-                        printf("--- Analise Extra (Subconjunto LI) ---\n");
+                        // Rodamos o escalonamento para achar o subconjunto LI
+                        printf("Analise Extra (Subconjunto LI)\n");
                         double constantes[MAX_ROWS] = {0};
                         double saida[MAX_COLS] = {0};
                         
@@ -224,13 +288,16 @@ int main()
                 } 
                 else 
                 {
-                    printf("\n>>> RESULTADO: NAO E UMA BASE! <<<\n");
+                    printf("\nNão é uma base!\n");
                     printf("Motivo Estrito: A quantidade de vetores (%d) e diferente da dimensao do espaco (%d).\n", num_vetores, dimensao);
                     
-                    if (num_vetores > dimensao) {
+                    if (num_vetores > dimensao) 
+                    {
                         printf("O conjunto e Linearmente Dependente (LD) por excesso de vetores.\n");
                         printf("Para extrair uma base, voce precisa remover os vetores redundantes via escalonamento.\n\n");
-                    } else {
+                    } 
+                    else 
+                    {
                         printf("O conjunto e insuficiente para gerar o espaco tridimensional (Faltam vetores).\n");
                         printf("Para transformar em base, voce precisa completar o conjunto adicionando mais %d vetor(es) LI.\n\n", dimensao - num_vetores);
                     }
@@ -258,11 +325,11 @@ int main()
                 if (modo_leitura == 1) 
                 {
                     char expressao[100];
-                    printf("\nDigite o operador (Aceita fracoes como 5/2 e espacos):\n> ");
+                    printf("\nDigite o operador (Aceita fracoes como 2/3 e espacos):\n> ");
                     fgets(expressao, sizeof(expressao), stdin);
 
                     // Filtra os valores da string e preenche matrizAtv
-                    analisar_operador(expressao, matrizAtv);
+                    verificaPonto(expressao, matrizAtv);
                 } 
                 else 
                 {
@@ -277,10 +344,10 @@ int main()
                 }
 
                 // Exibe a matriz extraída para conferência do usuário
-                printf("\n--- Matriz do Operador Gerada ---\n");
-                printf("[ %6.2f  %6.2f ]\n", matrizAtv[0][0], matrizAtv[0][1]);
-                printf("[ %6.2f  %6.2f ]\n", matrizAtv[1][0], matrizAtv[1][1]);
-                printf("---------------------------------\n");
+                // printf("\n--- Matriz do Operador Gerada ---\n");
+                // printf("[ %6.2f  %6.2f ]\n", matrizAtv[0][0], matrizAtv[0][1]);
+                // printf("[ %6.2f  %6.2f ]\n", matrizAtv[1][0], matrizAtv[1][1]);
+                // printf("---------------------------------\n");
 
                 // Executa os cálculos que criamos anteriormente
                 autova(ordem, matrizAtv, &autovae);
